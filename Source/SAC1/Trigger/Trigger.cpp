@@ -65,9 +65,10 @@ void ATrigger::OverlapBegin(UPrimitiveComponent* OverlappedComponent,
 	AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, 
 	bool bFromSweep, const FHitResult& SweepResult)
 {
-	LOG(TEXT("In Object"));
+	TriggerOverlap(OverlappedComponent, OtherActor, OtherComp, OtherBodyIndex,
+		bFromSweep, SweepResult);
 
-	FActorSpawnParameters ActorParam;
+	/*FActorSpawnParameters ActorParam;
 	ActorParam.SpawnCollisionHandlingOverride =
 		ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 
@@ -77,6 +78,10 @@ void ATrigger::OverlapBegin(UPrimitiveComponent* OverlappedComponent,
 
 	Effect->SetParticleAsset(TEXT("/Script/Engine.ParticleSystem'/Game/InfinityBladeEffects/Effects/FX_Ability/Defense/P_Shield_Spawn.P_Shield_Spawn'"));
 
-	Effect->SetAudioAsset(TEXT("/ Script / Engine.SoundWave'/Game/Sound/water-step-02.water-step-02'"));
+	Effect->SetAudioAsset(TEXT("/ Script / Engine.SoundWave'/Game/Sound/water-step-02.water-step-02'"));*/
+}
+
+void ATrigger::TriggerOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
 }
 

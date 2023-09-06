@@ -10,18 +10,17 @@ UCLASS()
 class SAC1_API AAISpawnPointFromParticle : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	// Sets default values for this actor's properties
 	AAISpawnPointFromParticle();
 
 protected:
 	UPROPERTY(Category = Component, VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
-	TObjectPtr<USceneComponent> mRoot;
+	TObjectPtr<USceneComponent>	mRoot;
 
 	UPROPERTY(Category = Component, VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
-	TObjectPtr<UParticleSystemComponent> mParticle;
-
+	TObjectPtr<UParticleSystemComponent>	mParticle;
 
 #if WITH_EDITORONLY_DATA
 	UPROPERTY()
@@ -29,18 +28,23 @@ protected:
 #endif
 
 	UPROPERTY(Category = Component, EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
-	TSubclassOf<class AAIPawn> mSpawnClass;
+	TSubclassOf<class AAIPawn>	mSpawnClass;
 
-private:
-	void SpawnObject();
+	TObjectPtr<USoundBase>	mSoundAsset;
 
+public:
+	void SpawnObject(TObjectPtr<UParticleSystem> ParticleAsset,
+		TObjectPtr<USoundBase> SoundAsset);
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
+public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+private:
+	UFUNCTION()
+	void ParticleFinish(UParticleSystemComponent* System);
 };
