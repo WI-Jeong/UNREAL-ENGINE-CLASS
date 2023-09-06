@@ -38,7 +38,7 @@ struct FPlayerDataTable	:
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
-	EPlayerJob Job;
+	EPlayerJob Job; 
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
 	int32 AttackPoint;
@@ -66,18 +66,6 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
 	float AttackDistance;
-
-
-
-
-
-
-
-
-
-
-
-
 
 };
 

@@ -17,8 +17,14 @@ class SAC1_API USAC1GameInstance : public UGameInstance
 public:
 	USAC1GameInstance();
 
+private:
+	//UDataTable*
+	TObjectPtr<UDataTable> mPlayerDataTable;
+
 public:
 	virtual void Init();
 
+public:
+	const FPlayerDataTable* FindPlayerData(const FName& Name);
 	
 };
