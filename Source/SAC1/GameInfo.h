@@ -19,6 +19,70 @@ DECLARE_LOG_CATEGORY_EXTERN(SAC1, Log, All);
 
 #define   LOGSTRING(str)      UE_LOG(SAC1, Warning, TEXT("%S : %S"), *LOG_CALLINFO, *str);
 
+UENUM(BlueprintType)
+enum class EPlayerJob : uint8
+{
+	None,
+	Knight,
+	Archer,
+	Magicion
+};
+
+
+//FTableRowBase 구조체를 상속받아야 데이터테이블 용 구조체를 만들 수 있다.
+USTRUCT(BlueprintType)
+struct FPlayerDataTable	:
+	public FTableRowBase
+{
+	GENERATED_USTRUCT_BODY()
+
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
+	EPlayerJob Job;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
+	int32 AttackPoint;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
+	int32 ArmorPoint;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
+	int32 HP;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
+	int32 MP;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
+	int32 Level;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
+	int32 Exp;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
+	int32 Gold;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
+	float MoveSpeed;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
+	float AttackDistance;
+
+
+
+
+
+
+
+
+
+
+
+
+
+};
+
+
+
 UCLASS()
 class SAC1_API UGameInfo : public UObject
 {
