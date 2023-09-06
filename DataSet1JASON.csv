@@ -1,0 +1,21 @@
+[
+	{
+		"Name": "Test1",
+		"TestBool": true,
+		"TestInt": 1234,
+		"AnimType": "Jump",
+		"TestFloat": 0,
+		"TestString": "",
+		"TestVector":
+		{
+			"X": 0,
+			"Y": 0,
+			"Z": 0
+		},
+		"AIClass": "None",
+		"Material": "/Script/Engine.MaterialInstanceConstant'/Game/InfinityBladeEffects/Effects/FX_Materials/Mobile/Beakable_No_Rim_MeshEmit_INST.Beakable_No_Rim_MeshEmit_INST'",
+		"Texter": "/Script/Engine.Texture2D'/Engine/EngineResources/AICON-Green.AICON-Green'",
+		"StaticMesh": "/Script/Engine.StaticMesh'/Engine/EditorMeshes/Axis_Guide.Axis_Guide'",
+		"Sound": "/Script/Engine.SoundCue'/Engine/EditorSounds/Notifications/CompileFailed_Cue.CompileFailed_Cue'"
+	}
+]
