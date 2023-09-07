@@ -52,4 +52,25 @@ void UBTService_TargetDetect::TickNode(UBehaviorTreeComponent& OwnerComp,
 		20, DrawColor, false, 0.35f);
 #endif
 
+
+	// 충돌이 되었다면 Blackboard의 Target 변수에 충돌된 물체를 지정하고
+	// 충돌이 아니면 nullptr을 지정한다.
+	if (Collision)
+	{
+		// Controller로부터 Blackboard를 얻어와서 Target을 지정한다.
+		// FHitResult의 GetActor() 함수는 충돌된 액터를 가져오는 함수이다.
+		Controller->GetBlackboardComponent()->SetValueAsObject(
+			TEXT("Target"), result.GetActor());
+
+	}
+
+	else
+	{
+		Controller->GetBlackboardComponent()->SetValueAsObject(
+			TEXT("Target"), nullptr);
+	}
+
+
+
+
 }
