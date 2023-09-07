@@ -18,6 +18,7 @@ public:
 	USAC1GameInstance();
 
 private:
+	//데이터 테이블의 에셋 타입은 UDataTable
 	//UDataTable*
 	TObjectPtr<UDataTable> mPlayerDataTable;
 

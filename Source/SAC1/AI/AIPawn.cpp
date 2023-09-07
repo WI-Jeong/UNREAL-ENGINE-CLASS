@@ -3,6 +3,7 @@
 
 #include "AIPawn.h"
 #include "AISpawnPoint.h"
+#include "DefaultAIController.h"
 
 // Sets default values
 AAIPawn::AAIPawn()
@@ -22,7 +23,10 @@ AAIPawn::AAIPawn()
 	
 	mMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 
+	AutoPossessAI = EAutoPossessAI::PlacedInWorldOrSpawned;
+	AIControllerClass = ADefaultAIController::StaticClass();
 }
+
 
 
 void AAIPawn::SetSpawnPoint(AAISpawnPoint* SpawnPoint)
@@ -50,7 +54,7 @@ void AAIPawn::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	AddMovementInput(GetActorForwardVector());
+	// AddMovementInput(GetActorForwardVector());
 
 }
 

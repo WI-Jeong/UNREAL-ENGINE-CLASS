@@ -2,11 +2,12 @@
 
 
 #include "PlayerCharacter.h"
+#include "SAC1PlayerState.h"
 
-
+ 
 // Sets default values
-APlayerCharacter::APlayerCharacter()
-{
+APlayerCharacter::APlayerCharacter() 
+{ 
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
@@ -200,6 +201,16 @@ void APlayerCharacter::BodyHit(UPrimitiveComponent* HitComponent,
 {
 	GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Red, 
 		FString::Printf(TEXT("Dest : %s"),*OtherActor->GetName()));
+
+	ASAC1PlayerState* State = Cast<ASAC1PlayerState>(GetPlayerState());
+
+	if (IsValid(State))
+	{
+		State->AddHP(-5);
+	}
+
+
+
 }
 
 void APlayerCharacter::OverlapBegin(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)

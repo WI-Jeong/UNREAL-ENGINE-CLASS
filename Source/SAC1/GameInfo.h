@@ -6,6 +6,11 @@
 #include "EngineGlobals.h"
 #include "Engine.h"
 #include "DrawDebugHelpers.h"
+#include "Blueprint/AIBlueprintHelperLibrary.h"
+#include "BehaviorTree/BehaviorTree.h"
+#include "BehaviorTree/BlackboardData.h"
+#include "BehaviorTree/BlackboardComponent.h"
+
 
 #include "UObject/NoExportTypes.h"
 #include "GameInfo.generated.h"
@@ -30,6 +35,7 @@ enum class EPlayerJob : uint8
 
 
 //FTableRowBase 구조체를 상속받아야 데이터테이블 용 구조체를 만들 수 있다.
+//BlueprintType에서 사용해야하기 때문에 USTRUCT(BlueprintType)
 USTRUCT(BlueprintType)
 struct FPlayerDataTable	:
 	public FTableRowBase

@@ -4,6 +4,7 @@
 #include "SAC1GameModeBase.h"
 #include "Player/MagicioinCharacter.h"
 #include "Player/SAC1PlayerState.h"
+#include "SAC1GameState.h"
 
 ASAC1GameModeBase::ASAC1GameModeBase()
 {
@@ -23,6 +24,8 @@ ASAC1GameModeBase::ASAC1GameModeBase()
 
 	//player state class를 지정한다.
 	PlayerStateClass = ASAC1PlayerState::StaticClass();
+
+	GameStateClass = ASAC1GameState::StaticClass();
 
 }
 
