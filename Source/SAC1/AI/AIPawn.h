@@ -16,6 +16,15 @@ public:
 	AAIPawn();
 
 protected:
+	static TObjectPtr<UDataTable>	mAIDataTable;
+
+public:
+	static void LoadAIData();
+
+protected:
+	static const FAIDataTable* FindAIData(const FName& Name);
+
+protected:
 	UPROPERTY(Category = Component, VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UCapsuleComponent>	mBody;
 
@@ -35,12 +44,23 @@ protected:
 	// 스폰포인트를 이용해서 생성한 객체가 아닐 경우 None이 들어가있다.
 	TObjectPtr<class AAISpawnPoint>	mSpawnPoint;
 
+public:
+	const TObjectPtr<class UAIState>& GetAIState() const
+	{
+		return mAIState;
+	}
+
 	
 
 public:
 	float GetHalfHeight()	const
 	{
 		return mBody->GetScaledCapsuleHalfHeight();
+	}
+
+	float GetCapsuleRadius()	const
+	{
+		return mBody->GetScaledCapsuleRadius();
 	}
 
 	void SetSpawnPoint(class AAISpawnPoint* SpawnPoint);

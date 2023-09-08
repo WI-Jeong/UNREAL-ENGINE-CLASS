@@ -6,6 +6,19 @@
 #include "Animation/AnimInstance.h"
 #include "DefaultAIAnimInstance.generated.h"
 
+UENUM(BlueprintType)
+enum class EAIAnimType : uint8
+{
+	Idle,
+	Walk,
+	Run,
+	Attack,
+	Death,
+	Skill1,
+	Skill2,
+	Skill3
+};
+
 /**
  * 
  */
@@ -16,6 +29,16 @@ class SAC1_API UDefaultAIAnimInstance : public UAnimInstance
 
 public:
 	UDefaultAIAnimInstance();
+
+protected:
+	UPROPERTY(Category = Anim, VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	EAIAnimType	mAnimType;
+
+public:
+	void ChangeAnim(EAIAnimType Type)
+	{
+		mAnimType = Type;
+	}
 
 public:
 

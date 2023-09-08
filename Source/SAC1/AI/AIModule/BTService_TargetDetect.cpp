@@ -4,8 +4,9 @@
 #include "BTService_TargetDetect.h"
 #include "../AIPawn.h"
 #include "AIController.h" // 이거 추가해주니까 컴파일 오류안나네...
+#include "../AIState.h" 
 
-
+ 
 
 UBTService_TargetDetect::UBTService_TargetDetect()
 {
@@ -28,15 +29,19 @@ void UBTService_TargetDetect::TickNode(UBehaviorTreeComponent& OwnerComp,
 	if (!IsValid(AIPawn))
 		return;
 
+
+	FVector	AILoc = AIPawn->GetActorLocation();
+
+	AILoc.Z -= AIPawn->GetHalfHeight();
+
 	FHitResult result;
 
 	FCollisionQueryParams  param(NAME_None, false, AIPawn);
 
 
 	bool Collision = GetWorld()->SweepSingleByChannel(result, 
-		AIPawn->GetActorLocation(), AIPawn->GetActorLocation(),
-		FQuat::Identity, ECollisionChannel::ECC_GameTraceChannel9,
-		FCollisionShape::MakeSphere(800.f), param);
+		AILoc, AILoc, FQuat::Identity, ECollisionChannel::ECC_GameTraceChannel9,
+		FCollisionShape::MakeSphere(AIPawn->GetAIState()->GetInteractionDistance()), param);
 
 	//디버깅용(에디터)으로 출력한다.
 #if ENABLE_DRAW_DEBUG
@@ -48,7 +53,7 @@ void UBTService_TargetDetect::TickNode(UBehaviorTreeComponent& OwnerComp,
 	//의 앞쪽으로 만들어주는 회전 행렬을 구한다. (FMatrix로 결과가 나온다.)
 	//그래서 .ToQuat()을 이용해서 FQuat(회전값)으로 변환한다.
 
-	DrawDebugSphere(GetWorld(), AIPawn->GetActorLocation(), 800.f,
+	DrawDebugSphere(GetWorld(), AIPawn->GetActorLocation(), AIPawn->GetAIState()->GetInteractionDistance(),
 		20, DrawColor, false, 0.35f);
 #endif
 

@@ -6,6 +6,8 @@
 #include "DefaultAIController.h"
 #include "AIState.h"
 
+TObjectPtr<UDataTable>	AAIPawn::mAIDataTable;
+
 // Sets default values
 AAIPawn::AAIPawn()
 {
@@ -29,6 +31,17 @@ AAIPawn::AAIPawn()
 	AIControllerClass = ADefaultAIController::StaticClass();
 }
 
+void AAIPawn::LoadAIData()
+{
+	mAIDataTable = LoadObject< UDataTable>(nullptr,TEXT("/Script/Engine.DataTable'/Game/Data/DT_AIData.DT_AIData'"));
+
+}
+
+const FAIDataTable* AAIPawn::FindAIData(const FName& Name)
+{ 
+	return mAIDataTable->FindRow<FAIDataTable>(Name, TEXT(""));
+}
+
 
 
 void AAIPawn::SetSpawnPoint(AAISpawnPoint* SpawnPoint)
@@ -40,7 +53,45 @@ void AAIPawn::OnConstruction(const FTransform& Transform)
 {
 	Super::OnConstruction(Transform);
 
+	// AIDataTable 애셋을 불러오지 않았을 경우 애셋을 불러온다.
+	if (!IsValid(mAIDataTable))
+		LoadAIData();
+
+	if (IsValid(mAIDataTable))
+	{
+		LOG(TEXT("AIDataTable Valid"));
+
+		const FAIDataTable* Data = FindAIData(mName);
+
+		mAIState->SetInfo(mName.ToString(), Data);
+
+		mMovement->MaxSpeed = Data->MoveSpeed;
+	}
+
+
 	LOG(TEXT("OnConstruction : %s"), *mName.ToString());
+
+	if(IsValid(GetWorld()->GetGameInstance()))
+	{
+		LOG(TEXT("GameInstance On"));
+		//매크로는 { }로 묶어주나봄..
+	}
+	
+	else
+	{
+		LOG(TEXT("GameInstance Off"));
+	}
+
+	if(IsValid(GetWorld()->GetAuthGameMode()))
+	{
+		LOG(TEXT("GameMode On"));
+	}
+
+	else
+	{
+		LOG(TEXT("GameMode Off"));
+	}
+
 }
 
 // Called when the game starts or when spawned

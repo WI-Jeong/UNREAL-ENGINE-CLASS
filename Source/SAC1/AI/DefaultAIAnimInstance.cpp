@@ -5,6 +5,7 @@
 
 UDefaultAIAnimInstance::UDefaultAIAnimInstance()
 {
+	mAnimType = EAIAnimType::Idle;
 }
 
 void UDefaultAIAnimInstance::NativeInitializeAnimation()

@@ -5,6 +5,7 @@
 #include "Player/MagicioinCharacter.h"
 #include "Player/SAC1PlayerState.h"
 #include "SAC1GameState.h"
+#include "AI/AIPawn.h"
 
 ASAC1GameModeBase::ASAC1GameModeBase()
 {
@@ -28,12 +29,6 @@ ASAC1GameModeBase::ASAC1GameModeBase()
 
 	GameStateClass = ASAC1GameState::StaticClass();
 
-
-
-	static ConstructorHelpers::FObjectFinder<UDataTable>	AITable(TEXT("/Script/Engine.DataTable'/Game/Data/DT_AIData.DT_AIData'"));
-
-	if (AITable.Succeeded())
-		mAIDataTable = AITable.Object;
 }
 
 void ASAC1GameModeBase::InitGame(const FString& MapName, const FString& Options,
@@ -66,10 +61,5 @@ void ASAC1GameModeBase::BeginPlay()
 void ASAC1GameModeBase::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-}
-
-const FAIDataTable* ASAC1GameModeBase::FindAIData(const FName& Name)
-{
-	return mAIDataTable->FindRow<FAIDataTable>(Name, TEXT(""));
 }
 
