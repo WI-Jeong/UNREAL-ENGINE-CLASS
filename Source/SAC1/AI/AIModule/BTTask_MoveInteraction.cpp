@@ -37,7 +37,7 @@ EBTNodeResult::Type UBTTask_MoveInteraction::ExecuteTask(
 	{
 		Controller->StopMovement(); //강제로 이동 멈추기
 
-		AIPawn->GetAIAnimInstance()->ChangeAnim(EAIAnimType::Idle);
+		AIPawn->GetAIAnimInstance()->ChangeAnim(EAIAnimType::Idle); //멈췄을 때는 아이들로 돌아가라
 
 		return EBTNodeResult::Failed;
 	}
@@ -61,6 +61,70 @@ EBTNodeResult::Type UBTTask_MoveInteraction::AbortTask(UBehaviorTreeComponent& O
 void UBTTask_MoveInteraction::TickTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds)
 {
 	Super::TickTask(OwnerComp, NodeMemory, DeltaSeconds);
+
+
+
+	AAIController* Controller = OwnerComp.GetAIOwner();
+
+	AAIPawn* AIPawn = Cast<AAIPawn>(Controller->GetPawn());
+
+	// AIPawn이 아닐 경우 정지.
+	if (!IsValid(AIPawn))
+	{
+		//Task를 종료시킨다.
+		FinishLatentTask(OwnerComp, EBTNodeResult::Failed);
+
+		Controller->StopMovement(); //강제로 이동 멈추기
+
+		AIPawn->GetAIAnimInstance()->ChangeAnim(EAIAnimType::Idle);
+
+		return;
+	}
+
+	// AIController가 가지고 있는 BlackboardComponent를 이용하여 Target을
+	// 얻어온다.
+	AActor* Target = Cast<AActor>(Controller->GetBlackboardComponent()->GetValueAsObject(TEXT("Target")));
+
+	if (!IsValid(Target))
+	{
+		FinishLatentTask(OwnerComp, EBTNodeResult::Failed);
+
+		Controller->StopMovement(); //강제로 이동 멈추기
+
+		AIPawn->GetAIAnimInstance()->ChangeAnim(EAIAnimType::Idle);
+
+		return;
+	}
+
+	// 타겟과 AIPawn과의 거리를 구한다.
+	FVector	AILoc = AIPawn->GetActorLocation();
+	FVector	TargetLoc = Target->GetActorLocation();
+
+	AILoc.Z -= AIPawn->GetHalfHeight();
+	TargetLoc.Z -= AIPawn->GetHalfHeight();
+
+	float Distance = FVector::Distance(AILoc, TargetLoc);
+
+	// 거리에서 각 물체들의 캡슐 반경을 빼준다.
+	Distance -= AIPawn->GetCapsuleRadius();
+
+	// Target의 RootComponent를 얻어와서 Capsule인지 확인한다.
+	UCapsuleComponent* Capsule = Cast<UCapsuleComponent>(Target->GetRootComponent());
+
+	if (IsValid(Capsule))
+	{
+		Distance -= Capsule->GetScaledCapsuleRadius();
+	}
+
+	if (Distance <= AIPawn->GetAIState()->GetAttackDistance())
+	{
+		// Task를 종료시킨다.
+		FinishLatentTask(OwnerComp, EBTNodeResult::Succeeded);
+
+		Controller->StopMovement();
+	}
+
+
 }
 
 void UBTTask_MoveInteraction::OnTaskFinished(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, EBTNodeResult::Type TaskResult)

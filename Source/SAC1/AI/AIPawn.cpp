@@ -5,6 +5,7 @@
 #include "AISpawnPoint.h"
 #include "DefaultAIController.h"
 #include "AIState.h"
+#include "DefaultAIAnimInstance.h" //이건 BS지우고 AB수정해준 이후인데...
 
 TObjectPtr<UDataTable>	AAIPawn::mAIDataTable;
 
@@ -98,6 +99,8 @@ void AAIPawn::OnConstruction(const FTransform& Transform)
 void AAIPawn::BeginPlay()
 {
 	Super::BeginPlay();
+
+	mAnim = Cast<UDefaultAIAnimInstance>(mMesh->GetAnimInstance());
 	
 }
 

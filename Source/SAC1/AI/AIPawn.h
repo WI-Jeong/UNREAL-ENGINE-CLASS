@@ -40,6 +40,8 @@ protected:
 	UPROPERTY(Category = Component, VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	FName		mName;
 
+	TObjectPtr<class UDefaultAIAnimInstance>	mAnim;
+
 	// 생성된 스폰포인트를 알고 있게 해준다.
 	// 스폰포인트를 이용해서 생성한 객체가 아닐 경우 None이 들어가있다.
 	TObjectPtr<class AAISpawnPoint>	mSpawnPoint;
@@ -49,6 +51,14 @@ public:
 	{
 		return mAIState;
 	}
+
+
+	const TObjectPtr<class UDefaultAIAnimInstance>& GetAIAnimInstance()	const
+	{
+		return mAnim;
+	}
+
+	//이것도 BS지우고 AB수정해준 이후에 해준건데....
 
 	
 
