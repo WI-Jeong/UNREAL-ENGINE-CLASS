@@ -7,6 +7,8 @@ AAIMinionPawn::AAIMinionPawn()
 {
 	PrimaryActorTick.bCanEverTick = true;
 
+	mName = TEXT("Minion");
+
 	mBody->SetCapsuleHalfHeight(92.f);
 	mBody->SetCapsuleRadius(32.f);
 

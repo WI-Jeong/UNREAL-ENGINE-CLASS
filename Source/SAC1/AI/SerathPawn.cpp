@@ -7,6 +7,8 @@ ASerathPawn::ASerathPawn()
 {
 	PrimaryActorTick.bCanEverTick = true;
 
+	mName = TEXT("Serath");
+
 	mBody->SetCapsuleHalfHeight(92.f);
 	mBody->SetCapsuleRadius(32.f);
 

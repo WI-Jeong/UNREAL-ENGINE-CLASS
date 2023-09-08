@@ -2,12 +2,13 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
+#include "GameInfo.h"
+//#include "DataTable.h"
 #include "GameFramework/GameModeBase.h"
 #include "SAC1GameModeBase.generated.h"
 
 /**
- * 
+ *
  */
 UCLASS()
 class SAC1_API ASAC1GameModeBase : public AGameModeBase
@@ -17,6 +18,9 @@ class SAC1_API ASAC1GameModeBase : public AGameModeBase
 public:
 	ASAC1GameModeBase();
 
+private:
+	TObjectPtr<UDataTable>	mAIDataTable;
+
 public:
 	virtual void InitGame(const FString& MapName, const FString& Options, FString& ErrorMessage);
 	virtual void InitGameState();
@@ -24,4 +28,6 @@ public:
 	virtual void BeginPlay()	override;
 	virtual void Tick(float DeltaTime)	override;
 
+public:
+	const FAIDataTable* FindAIData(const FName& Name);
 };

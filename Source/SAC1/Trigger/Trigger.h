@@ -25,7 +25,7 @@ public:
 
 protected:
 
-	UPROPERTY(Category = Component, VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(Category = Component, VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true")) 
 	TObjectPtr<UBoxComponent> mBody;
 
 	

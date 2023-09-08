@@ -4,6 +4,7 @@
 #include "AIPawn.h"
 #include "AISpawnPoint.h"
 #include "DefaultAIController.h"
+#include "AIState.h"
 
 // Sets default values
 AAIPawn::AAIPawn()
@@ -14,6 +15,7 @@ AAIPawn::AAIPawn()
 	mBody = CreateDefaultSubobject<UCapsuleComponent>(TEXT("Body"));
 	mMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Mesh"));
 	mMovement = CreateDefaultSubobject<UFloatingPawnMovement>(TEXT("Movement"));
+	mAIState = CreateDefaultSubobject<UAIState>(TEXT("AIState"));
 
 	SetRootComponent(mBody);
 	mMesh->SetupAttachment(mBody);
@@ -32,6 +34,13 @@ AAIPawn::AAIPawn()
 void AAIPawn::SetSpawnPoint(AAISpawnPoint* SpawnPoint)
 {
 	mSpawnPoint = SpawnPoint;
+}
+
+void AAIPawn::OnConstruction(const FTransform& Transform)
+{
+	Super::OnConstruction(Transform);
+
+	LOG(TEXT("OnConstruction : %s"), *mName.ToString());
 }
 
 // Called when the game starts or when spawned
