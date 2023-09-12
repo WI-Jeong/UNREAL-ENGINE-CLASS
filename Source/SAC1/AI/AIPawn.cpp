@@ -37,11 +37,12 @@ AAIPawn::AAIPawn()
 	AIControllerClass = ADefaultAIController::StaticClass();
 }
 
-void AAIPawn::LoadAIData()
-{
-	mAIDataTable = LoadObject< UDataTable>(nullptr,TEXT("/Script/Engine.DataTable'/Game/Data/DT_AIData.DT_AIData'"));
 
-}
+//void AAIPawn::LoadAIData()
+//{
+//	mAIDataTable = LoadObject< UDataTable>(nullptr,TEXT("/Script/Engine.DataTable'/Game/Data/DT_AIData.DT_AIData'"));
+//
+//}
 
 void AAIPawn::LoadAIData()
 {

@@ -104,46 +104,61 @@ void UBTTask_Attack::TickTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemo
 		return;
 	}
 
-	//현재 이동 방향을 향하도록 AI를 회전시킨다.
-	FVector Dir = AIPawn->GetMovementComponent()->Velocity;
-	Dir.Z = 0.f;
+	////현재 이동 방향을 향하도록 AI를 회전시킨다.
+	//FVector Dir = AIPawn->GetMovementComponent()->Velocity;
+	//Dir.Z = 0.f;
 
-	//Dir은 현재 크기까지 가지고 있다. 그러므로 방향만을 남기기 위해서 벡터를
-	//정규화 시켜준다.
-	Dir.Normalize();
+	////Dir은 현재 크기까지 가지고 있다. 그러므로 방향만을 남기기 위해서 벡터를
+	////정규화 시켜준다.
+	//Dir.Normalize();
 
-	AIPawn->SetActorRotation(FRotator(0.0, Dir.Rotation().Yaw, 0.0));
+	//AIPawn->SetActorRotation(FRotator(0.0, Dir.Rotation().Yaw, 0.0));
 
 
-	// 타겟과 AIPawn과의 거리를 구한다.
-	FVector	AILoc = AIPawn->GetActorLocation();
-	FVector	TargetLoc = Target->GetActorLocation();
-
-	AILoc.Z -= AIPawn->GetHalfHeight();
-	TargetLoc.Z -= AIPawn->GetHalfHeight();
-
-	float Distance = FVector::Distance(AILoc, TargetLoc);
-
-	// 거리에서 각 물체들의 캡슐 반경을 빼준다.
-	Distance -= AIPawn->GetCapsuleRadius();
-
-	// Target의 RootComponent를 얻어와서 Capsule인지 확인한다.
-	UCapsuleComponent* Capsule = Cast<UCapsuleComponent>(Target->GetRootComponent());
-
-	if (IsValid(Capsule))
+	// 공격 모션이 끝났는지를 판단한다.
+	if (AIPawn->GetAttackEnd())
 	{
-		Distance -= Capsule->GetScaledCapsuleRadius();
+		// 타겟과 AIPawn과의 거리를 구한다.
+		FVector	AILoc = AIPawn->GetActorLocation();
+		FVector	TargetLoc = Target->GetActorLocation();
+
+		AILoc.Z -= AIPawn->GetHalfHeight();
+		TargetLoc.Z -= AIPawn->GetHalfHeight();
+
+		float Distance = FVector::Distance(AILoc, TargetLoc);
+
+		// 거리에서 각 물체들의 캡슐 반경을 빼준다.
+		Distance -= AIPawn->GetCapsuleRadius();
+
+		// Target의 RootComponent를 얻어와서 Capsule인지 확인한다.
+		UCapsuleComponent* Capsule = Cast<UCapsuleComponent>(Target->GetRootComponent());
+
+		if (IsValid(Capsule))
+		{
+			Distance -= Capsule->GetScaledCapsuleRadius();
+		}
+
+		if (Distance > AIPawn->GetAIState()->GetAttackDistance())
+		{
+			// Task를 종료시킨다.
+			FinishLatentTask(OwnerComp, EBTNodeResult::Failed);
+		}
+
+		// 여전히 공격거리 안에 존재할 경우 타겟쪽으로 방향을 변경한다.
+		else
+		{
+			FVector Dir = TargetLoc - AILoc;
+			Dir.Z = 0.0;
+
+			Dir.Normalize();
+
+			AIPawn->SetActorRotation(FRotator(0.0, Dir.Rotation().Yaw, 0.0));
+		}
+
+		AIPawn->SetAttackEnd(false);
+
+
 	}
-
-	if (Distance <= AIPawn->GetAIState()->GetAttackDistance())
-	{
-		// Task를 종료시킨다.
-		FinishLatentTask(OwnerComp, EBTNodeResult::Succeeded);
-
-		Controller->StopMovement();
-	}
-
-
 }
 
 void UBTTask_Attack::OnTaskFinished(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, EBTNodeResult::Type TaskResult)

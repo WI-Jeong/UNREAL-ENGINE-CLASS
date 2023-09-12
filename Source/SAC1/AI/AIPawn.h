@@ -82,6 +82,11 @@ public:
 
 	void SetSpawnPoint(class AAISpawnPoint* SpawnPoint);
 
+	void SetAttackEnd(bool AttackEnd)
+	{
+		mAttackEnd = AttackEnd;
+	}
+
 protected:
 	virtual void OnConstruction(const FTransform& Transform);
 	// Called when the game starts or when spawned
