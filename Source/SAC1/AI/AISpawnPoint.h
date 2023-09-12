@@ -36,6 +36,9 @@ protected:
 
 	float mTime;
 
+	UPROPERTY(Category = Component, EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	ETeam	mTeam;
+
 public:
 	void ClearObject();
 

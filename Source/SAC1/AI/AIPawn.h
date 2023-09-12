@@ -47,11 +47,30 @@ protected:
 	TObjectPtr<class AAISpawnPoint>	mSpawnPoint;
 
 	bool	mAttackEnd;
+	bool	mInteractionEnd;	
+
+	ETeam	mTeam;
+
+public:
+	ETeam GetTeam()
+	{
+		return mTeam;
+	}
+
+	void SetTeam(ETeam Team) //팀 지정하는 함수
+	{
+		mTeam = Team;
+	}
 
 public:
 	bool GetAttackEnd()	const
 	{
 		return mAttackEnd;
+	}
+
+	bool GetInteractionEnd()	const
+	{
+		return mInteractionEnd;
 	}
 
 	const TObjectPtr<class UAIState>& GetAIState() const
@@ -85,6 +104,11 @@ public:
 	void SetAttackEnd(bool AttackEnd)
 	{
 		mAttackEnd = AttackEnd;
+	}
+
+	void SetInteractionEnd(bool InteractionEnd)
+	{
+		mInteractionEnd = InteractionEnd;
 	}
 
 protected:

@@ -55,3 +55,15 @@ void UDefaultAIAnimInstance::AnimNotify_AttackEnd()
 		AIPawn->SetAttackEnd(true);
 	}
 }
+
+void UDefaultAIAnimInstance::AnimNotify_InteractionkEnd()
+{
+	AAIPawn* AIPawn = Cast< AAIPawn>(TryGetPawnOwner());
+
+	// IsValid : 객체가 유효한지 판단한다.
+   // nullptr일 경우 유효한 객체가 아니다.
+	if (IsValid(AIPawn))
+	{
+		AIPawn->SetInteractionEnd(true);
+	}
+}

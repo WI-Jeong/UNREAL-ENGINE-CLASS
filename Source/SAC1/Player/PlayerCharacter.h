@@ -35,6 +35,19 @@ protected:
 
 	TObjectPtr< UPlayerAnimInstance> mPlayerAnim;
 
+	ETeam	mTeam;
+
+public:
+	ETeam GetTeam()
+	{
+		return mTeam;
+	}
+
+	void SetTeam(ETeam Team)
+	{
+		mTeam = Team;
+	}
+
 public:
 	void ChangeAnimation(EPlayerAnimType Type)
 	{

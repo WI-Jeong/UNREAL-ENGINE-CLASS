@@ -16,6 +16,7 @@ AAIPawn::AAIPawn()
 	PrimaryActorTick.bCanEverTick = true;
 
 	mAttackEnd = false;
+	mInteractionEnd = false;
 
 	//Controller의 Yaw 회전에 매칭한다.
 	//bUseControllerRotationYaw = true;
@@ -35,6 +36,8 @@ AAIPawn::AAIPawn()
 
 	AutoPossessAI = EAutoPossessAI::PlacedInWorldOrSpawned;
 	AIControllerClass = ADefaultAIController::StaticClass();
+
+	mTeam = ETeam::Team2; //2번팀 지정. 즉, 플레이어랑 ai랑 팀 다르게 지정한거임 
 }
 
 

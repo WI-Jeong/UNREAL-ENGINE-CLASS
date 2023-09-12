@@ -51,6 +51,8 @@ APlayerCharacter::APlayerCharacter()
 
 	GetMesh()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 
+	mTeam = ETeam::Team1; //여긴 1번 팀 지정. AIpawn은 2번팀으로 지정할꺼임.
+
 }
 
 // Called when the game starts or when spawned

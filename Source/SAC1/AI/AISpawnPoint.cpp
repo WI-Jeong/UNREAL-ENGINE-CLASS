@@ -56,8 +56,8 @@ void AAISpawnPoint::SpawnObject()
 		GetActorLocation() + FVector(0.0, 0.0, (double)HalfHeight),
 		GetActorRotation(), ActorParam);
 
+	mSpawnObject->SetTeam(mTeam);
 	mSpawnObject->SetSpawnPoint(this);
-
 
 }
 

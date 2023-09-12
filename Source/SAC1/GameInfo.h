@@ -114,6 +114,14 @@ public:
 };
 
 
+UENUM(BlueprintType)
+enum class ETeam : uint8
+{
+	Team1,
+	Team2,
+	Team3
+};
+
 
 UCLASS()
 class SAC1_API UGameInfo : public UObject
