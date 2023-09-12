@@ -1,15 +1,15 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "BTTask_MoveInteraction.h"
+#include "BTTask_Attack.h"
 #include "../AIPawn.h"
 #include "../DefaultAIAnimInstance.h"
 #include "../AIState.h"
-#include "../DefaultAIController.h" // 이거 추가해줌
+#include "../DefaultAIController.h" 
 
-UBTTask_MoveInteraction::UBTTask_MoveInteraction()
+UBTTask_Attack::UBTTask_Attack()
 {
-	NodeName = TEXT("MoveInteraction");
+	NodeName = TEXT("Attack");
 
 	// TickTask 함수를 호출한다.(true로 해야 호출됨)
 	bNotifyTick = true;
@@ -18,11 +18,13 @@ UBTTask_MoveInteraction::UBTTask_MoveInteraction()
 	bNotifyTaskFinished = true;
 }
 
-EBTNodeResult::Type UBTTask_MoveInteraction::ExecuteTask(
+EBTNodeResult::Type UBTTask_Attack::ExecuteTask(
 	UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
+
 	Super::ExecuteTask(OwnerComp, NodeMemory);
 
+	// BehaviorTreeComponent를 이용하여 AIController를 얻어올 수 있다.
 	AAIController* Controller = OwnerComp.GetAIOwner();
 
 	AAIPawn* AIPawn = Cast<AAIPawn>(Controller->GetPawn());
@@ -37,30 +39,34 @@ EBTNodeResult::Type UBTTask_MoveInteraction::ExecuteTask(
 
 	if (!IsValid(Target))
 	{
-		Controller->StopMovement(); //강제로 이동 멈추기
+		Controller->StopMovement(); //이제는 이동이 아니라 어택이기 때문에 꼭 StopMovement
 
-		AIPawn->GetAIAnimInstance()->ChangeAnim(EAIAnimType::Idle); //멈췄을 때는 아이들로 돌아가라
+		AIPawn->GetAIAnimInstance()->ChangeAnim(EAIAnimType::Idle); //타겟 없으면 idle로
 
 		return EBTNodeResult::Failed;
 	}
 
+	//이제는 이동시킬 이유가 없음. 이동이 아니라 공격을 해야하기 때문에 아래 SimpleMoveToActor 코드 지워주기
+	// SimpleMoveToActor: 길을 찾아서 이동하는 코드
 	// 타겟의 위치로 NavMesh를 활용하여 길을 찾아 이동시킨다.
-	UAIBlueprintHelperLibrary::SimpleMoveToActor(Controller, Target);
+	//UAIBlueprintHelperLibrary::SimpleMoveToActor(Controller, Target);
 
-	AIPawn->GetAIAnimInstance()->ChangeAnim(EAIAnimType::Run);
+	//애니메이션 run이 아니라 attack으로 바궈주기
+	//AIPawn->GetAIAnimInstance()->ChangeAnim(EAIAnimType::Run);
+	AIPawn->GetAIAnimInstance()->ChangeAnim(EAIAnimType::Attack);
 
 
 	return EBTNodeResult::InProgress;
 }
 
-EBTNodeResult::Type UBTTask_MoveInteraction::AbortTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
+EBTNodeResult::Type UBTTask_Attack::AbortTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
 	Super::AbortTask(OwnerComp, NodeMemory);
 
 	return EBTNodeResult::Type();
 }
 
-void UBTTask_MoveInteraction::TickTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds)
+void UBTTask_Attack::TickTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds)
 {
 	Super::TickTask(OwnerComp, NodeMemory, DeltaSeconds);
 
@@ -140,12 +146,7 @@ void UBTTask_MoveInteraction::TickTask(UBehaviorTreeComponent& OwnerComp, uint8*
 
 }
 
-void UBTTask_MoveInteraction::OnTaskFinished(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, EBTNodeResult::Type TaskResult)
+void UBTTask_Attack::OnTaskFinished(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, EBTNodeResult::Type TaskResult)
 {
 	Super::OnTaskFinished(OwnerComp, NodeMemory, TaskResult);
 }
-
-
-//헤더파일에 함수만 만들었더니 에러남. 함수 선언/정의 해주고 내용ㅇ쓰고 
-//컴파일했더니 에러 안남. Super이거 안쓰고 생성만 해도 되는지는 몰루.
-//->SUper안쓰고 cpp파일에 선언/정의 그거 해서 생성만 했는데 컴파일 오류 안낫음.

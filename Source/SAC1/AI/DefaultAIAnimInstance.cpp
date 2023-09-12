@@ -2,6 +2,7 @@
 
 
 #include "DefaultAIAnimInstance.h"
+#include "AIPawn.h"
 
 UDefaultAIAnimInstance::UDefaultAIAnimInstance()
 {
@@ -36,4 +37,14 @@ void UDefaultAIAnimInstance::NativeUninitializeAnimation()
 void UDefaultAIAnimInstance::NativeBeginPlay()
 {
 	Super::NativeBeginPlay();
+}
+
+void UDefaultAIAnimInstance::AnimNotify_Attack()
+{
+
+}
+
+void UDefaultAIAnimInstance::AnimNotify_AttackEnd()
+{
+
 }

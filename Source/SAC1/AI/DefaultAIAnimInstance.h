@@ -54,5 +54,13 @@ public:
 
 	virtual void NativeBeginPlay();
 
+
+public:
+	UFUNCTION()
+	void AnimNotify_Attack();
+
+	UFUNCTION()
+	void AnimNotify_AttackEnd();
+
 	
 };

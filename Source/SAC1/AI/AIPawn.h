@@ -46,7 +46,14 @@ protected:
 	// 스폰포인트를 이용해서 생성한 객체가 아닐 경우 None이 들어가있다.
 	TObjectPtr<class AAISpawnPoint>	mSpawnPoint;
 
+	bool	mAttackEnd;
+
 public:
+	bool GetAttackEnd()	const
+	{
+		return mAttackEnd;
+	}
+
 	const TObjectPtr<class UAIState>& GetAIState() const
 	{
 		return mAIState;
