@@ -138,10 +138,11 @@ void UBTTask_Interaction::TickTask(UBehaviorTreeComponent& OwnerComp, uint8* Nod
 			Distance -= Capsule->GetScaledCapsuleRadius();
 		}
 
-		if (Distance > AIPawn->GetAIState()->GetInteractionDistance())
+		//GetInteractionDistance로 바뀌어있길래 GetAttackDistance로 바꿔줌
+		if (Distance > AIPawn->GetAIState()->GetAttackDistance())
 		{
 			// Task를 종료시킨다.
-			FinishLatentTask(OwnerComp, EBTNodeResult::Failed);
+			FinishLatentTask(OwnerComp, EBTNodeResult::Succeeded);
 		}
 
 		// 여전히 공격거리 안에 존재할 경우 타겟쪽으로 방향을 변경한다.

@@ -40,6 +40,9 @@ bool UBTDecorator_CheckTargetDistance::CalculateRawConditionValue(
 	// AIController가 가지고 있는 BlackboardComponent를 이용하여 Target을
 	// 얻어온다.
 	AActor* Target = Cast<AActor>(Controller->GetBlackboardComponent()->GetValueAsObject(TEXT("Target")));
+	
+	if (!IsValid(Target))
+		return false;
 
 	FVector	AILoc = AIPawn->GetActorLocation();
 	FVector	TargetLoc = Target->GetActorLocation();
