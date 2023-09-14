@@ -51,6 +51,9 @@ protected:
 
 	ETeam	mTeam;
 
+	UPROPERTY(Category = Component, EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	TArray<TObjectPtr<class APatrolPoint>>	mPatrolPointArray;
+
 public:
 	ETeam GetTeam()
 	{

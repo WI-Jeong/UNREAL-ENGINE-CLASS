@@ -39,6 +39,11 @@ protected:
 	UPROPERTY(Category = Component, EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	ETeam	mTeam;
 
+	UPROPERTY(Category = Component, EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	TArray<TObjectPtr<class APatrolPoint>>	mPatrolPointArray;
+
+
+
 public:
 	void ClearObject();
 
