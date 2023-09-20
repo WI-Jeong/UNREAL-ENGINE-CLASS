@@ -6,6 +6,8 @@
 #include "Player/SAC1PlayerState.h"
 #include "SAC1GameState.h"
 #include "AI/AIPawn.h"
+#include "Player/SACPlayerController.h"
+
 
 ASAC1GameModeBase::ASAC1GameModeBase()
 {
@@ -28,6 +30,8 @@ ASAC1GameModeBase::ASAC1GameModeBase()
 	PlayerStateClass = ASAC1PlayerState::StaticClass();
 
 	GameStateClass = ASAC1GameState::StaticClass();
+
+	PlayerControllerClass = ASACPlayerController::StaticClass();
 
 }
 
