@@ -38,6 +38,16 @@ AAIPawn::AAIPawn()
 	AIControllerClass = ADefaultAIController::StaticClass();
 
 	mTeam = ETeam::Team2; //2번팀 지정. 즉, 플레이어랑 ai랑 팀 다르게 지정한거임 
+
+
+
+
+	mMesh->bRenderCustomDepth = true;
+
+	//0~255사이의 원하는 값을 넣어준다.
+	mMesh->SetCustomDepthStencilValue(0);
+
+
 }
 
 
@@ -109,10 +119,7 @@ void AAIPawn::OnConstruction(const FTransform& Transform)
 	}
 
 
-	mMesh->bRenderCustomDepth = true;
 
-	//0~255사이의 원하는 값을 넣어준다.
-	mMesh->SetCustomDepthStencilValue(0);
 }
 
 // Called when the game starts or when spawned
