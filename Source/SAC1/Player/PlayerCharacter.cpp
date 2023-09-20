@@ -53,6 +53,10 @@ APlayerCharacter::APlayerCharacter()
 
 	mTeam = ETeam::Team1; //여긴 1번 팀 지정. AIpawn은 2번팀으로 지정할꺼임.
 
+	GetMesh()->bRenderCustomDepth = true;
+
+	//0~255사이의 원하는 값을 넣어준다.
+	GetMesh()->SetCustomDepthStencilValue(0);
 }
 
 // Called when the game starts or when spawned

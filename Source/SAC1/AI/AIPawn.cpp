@@ -108,6 +108,11 @@ void AAIPawn::OnConstruction(const FTransform& Transform)
 		LOG(TEXT("GameMode Off"));
 	}
 
+
+	mMesh->bRenderCustomDepth = true;
+
+	//0~255사이의 원하는 값을 넣어준다.
+	mMesh->SetCustomDepthStencilValue(0);
 }
 
 // Called when the game starts or when spawned
