@@ -88,8 +88,7 @@ void ASACPlayerController::ChangePickOutLine(int32 StencilValue)
 		StaticMesh->SetCustomDepthStencilValue(StencilValue);
 	}
 
-	USkeletalMeshComponent* SkeletalMesh =
-		mCursorPickActor->GetComponentByClass<USkeletalMeshComponent>();
+	USkeletalMeshComponent* SkeletalMesh =mCursorPickActor->GetComponentByClass<USkeletalMeshComponent>();
 
 	if (IsValid(SkeletalMesh))
 

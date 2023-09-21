@@ -18,7 +18,7 @@ public:
 	ASACPlayerController();
 
 protected:
-	TObjectPtr<AActor>* mCursorPickActor;
+	TObjectPtr<AActor> mCursorPickActor;
 	//TSubclassOf¿¡¼­ TObjectPtr·Î ¹Ù²Þ
 
 protected:
