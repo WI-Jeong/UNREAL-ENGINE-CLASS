@@ -46,6 +46,8 @@ protected:
 	// 스폰포인트를 이용해서 생성한 객체가 아닐 경우 None이 들어가있다.
 	TObjectPtr<class AAISpawnPoint>	mSpawnPoint;
 
+	TArray<TObjectPtr<UMaterialInstanceDynamic>>	mMaterialArray;
+
 	bool	mAttackEnd;
 	bool	mInteractionEnd;	
 
@@ -53,6 +55,18 @@ protected:
 
 	UPROPERTY(Category = Component, EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	TArray<TObjectPtr<class APatrolPoint>>	mPatrolPointArray;
+
+	TArray<FVector>		mPatrolPoint;
+	int32				mPatrolIndex;
+
+	bool				mHit;
+	FTimerHandle		mHitTimerHandle;
+
+	UPROPERTY(Category = Component, EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
+	float				mDissolveTime;
+
+	float				mDissolveCurrentTime;
+	bool				mDissolveEnable;
 
 public:
 	ETeam GetTeam()
@@ -122,9 +136,19 @@ protected:
 	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason);
 
 public:
+		virtual float TakeDamage(float DamageAmount,
+			struct FDamageEvent const& DamageEvent,
+			class AController* EventInstigator, AActor* DamageCauser);
+
+public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 public:
 	void SetCollisionProfile(const FName& Name);
+
+	UFUNCTION()
+	void HitTimer();
+
+	void DeathEnd();
 };

@@ -112,6 +112,39 @@ void AMagicioinCharacter::Attack1()
 		Effect->SetAudioAsset(TEXT("/Script/Engine.SoundWave'/Game/Sound/Fire1.Fire1'"));
 
 
+		FHitResult	LineResult;
+
+		FCollisionQueryParams	param1(NAME_None, false, this);
+
+		bool LineCollision = GetWorld()->LineTraceSingleByChannel(LineResult,
+			result.ImpactPoint,
+			result.ImpactPoint - FVector(0.0, 0.0, 200.0),
+			ECollisionChannel::ECC_GameTraceChannel9, param1);
+
+		if (LineCollision)
+		{
+			ADecalEffect* Decal = GetWorld()->SpawnActor<ADecalEffect>(
+				LineResult.ImpactPoint,
+				FRotator::ZeroRotator, ActorParam);
+
+			Decal->SetDecalMaterial(TEXT("/Script/Engine.Material'/Game/Materials/MDefaultDecal.MDefaultDecal'"));
+			// 액터의 생명주기를 지정한다. 5.f를 지정하면 생성되고 5초 뒤에 제거된다.
+			Decal->SetLifeSpan(5.f);
+		}
+
+		auto State = GetPlayerState<ASAC1PlayerState>();
+
+		float	Dmg = 0.f;
+
+		if (IsValid(State))
+			Dmg = (float)State->GetAttackPoint();
+
+		FDamageEvent	DmgEvent;
+		result.GetActor()->TakeDamage(100.f, DmgEvent, GetController(),
+			this);
+	}
+
+
 	}
 }
 

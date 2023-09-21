@@ -85,7 +85,22 @@ public:
 		mMoveSpeed = Data->MoveSpeed;
 		mAttackDistance = Data->AttackDistance;
 		mInteractionDistance = Data->InteractionDistance;
+	}
 
+	bool AddHP(int32 Dmg)
+	{
+		mHP -= Dmg;
+
+		if (mHP <= 0)
+		{
+			mHP = 0;
+			return true; //ав
+		}
+
+		else if (mHP > mHPMax)
+			mHP = mHPMax;
+
+		return false; //╩Л
 	}
 
 protected:

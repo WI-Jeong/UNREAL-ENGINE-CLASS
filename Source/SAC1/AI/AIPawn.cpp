@@ -40,7 +40,7 @@ AAIPawn::AAIPawn()
 	mTeam = ETeam::Team2; //2번팀 지정. 즉, 플레이어랑 ai랑 팀 다르게 지정한거임 
 
 
-
+	mHit = false;
 
 	mMesh->bRenderCustomDepth = true;
 
@@ -115,7 +115,7 @@ void AAIPawn::OnConstruction(const FTransform& Transform)
 
 	else
 	{
-		LOG(TEXT("GameMode Off"));
+		LOG(TEXT("GameMode Off")); 
 	}
 
 
@@ -139,18 +139,102 @@ void AAIPawn::EndPlay(const EEndPlayReason::Type EndPlayReason)
 		mSpawnPoint->ClearObject();
 }
 
+float AAIPawn::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
+{
+	float Dmg = Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator,
+		DamageCauser);
+
+	bool Death = mAIState->AddHP((int32)Dmg);
+
+
+	if (Death)
+	{
+		if (mAnim)
+			mAnim->ChangeAnim(EAIAnimType::Death);
+
+		mBody->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+
+		AAIController* AI = Cast<AAIController>(GetController());
+
+		if (IsValid(AI))
+			AI->BrainComponent->StopLogic(TEXT("Death"));
+
+		//mMesh->SetSimulatePhysics(true);
+	}
+
+	else
+	{
+		/*
+		언리얼엔진 타이머
+		글로벌타이머 매니저를 가지고 있고 매니저에서 타이머들을 관리한다.
+		FTimerManager의 SetTimer 함수를 이용하여 타이머를 생성한다.
+		*/
+		// 타이머 핸들이 없을 때 타이머를 생성한다.
+		if (!mHitTimerHandle.IsValid())
+		{
+			// Actor클래스는 GetWorldTimerManager() 함수를 지원해주고 있지만
+			// 다른 클래스에서는 지원하지 않을 수 있기 때문에
+			// GetWorld()->GetTimerManager() 로 접근한다.
+			GetWorld()->GetTimerManager().SetTimer(mHitTimerHandle, this,
+				&AAIPawn::HitTimer, 0.2f);
+		}
+
+	}
+
+
+
+	mHit = true;
+
+	// MaterialInstance 전체를 반복하며 HitColor를 붉은색으로 변경한다.
+	for (auto& Mtrl : mMaterialArray)
+	{
+		Mtrl->SetVectorParameterValue(TEXT("HitColor"),
+			FVector(1.0, 0.0, 0.0));
+	}
+
+	return Dmg;
+}
+
 // Called every frame
 void AAIPawn::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	// AddMovementInput(GetActorForwardVector());
+	//AddMovementInput(GetActorForwardVector());
+	// mHit가 true일 경우 시간을 계산하여 시간이 지나면 HitColor를 1.0, 1.0, 1.0
+	// 으로 변경해보자.
 
 }
 
 void AAIPawn::SetCollisionProfile(const FName& Name)
 {
 	mBody->SetCollisionProfileName(Name);
+}
+
+void AAIPawn::HitTimer()
+{
+	mHit = false;
+
+	// MaterialInstance 전체를 반복하며 HitColor를 붉은색으로 변경한다.
+	for (auto& Mtrl : mMaterialArray)
+	{
+		Mtrl->SetVectorParameterValue(TEXT("HitColor"),
+			FVector(1.0, 1.0, 1.0));
+	}
+
+	GetWorld()->GetTimerManager().ClearTimer(mHitTimerHandle);
+}
+
+void AAIPawn::DeathEnd()
+{
+	// Dissolve를 활성화한다.
+	for (auto& Mtrl : mMaterialArray)
+	{
+		Mtrl->SetScalarParameterValue(TEXT("DissolveEnable"),
+			1.f);
+	}
+
+	mDissolveEnable = true;
 }
 
 
