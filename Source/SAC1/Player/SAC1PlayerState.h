@@ -52,6 +52,13 @@ protected:
 	float mAttackDistance;
 
 public:
+	int32 GetAttackPoint()
+	{
+		return mAttackPoint;
+	}
+
+
+public:
 	bool AddHP(int32 HP)
 	{
 		mHP += HP;

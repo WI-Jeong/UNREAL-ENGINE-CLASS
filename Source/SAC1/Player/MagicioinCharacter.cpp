@@ -4,6 +4,8 @@
 #include "MagicioinCharacter.h"
 #include "../Effect/DefaultEffect.h"
 #include "../Projectile/ProjectileBase.h"
+#include "../Effect/DecalEffect.h"
+#include "SAC1PlayerState.h"
 
 
 AMagicioinCharacter::AMagicioinCharacter()
@@ -139,13 +141,10 @@ void AMagicioinCharacter::Attack1()
 		if (IsValid(State))
 			Dmg = (float)State->GetAttackPoint();
 
-		FDamageEvent	DmgEvent;
-		result.GetActor()->TakeDamage(100.f, DmgEvent, GetController(),
-			this);
+	/*	FDamageEvent	DmgEvent;
+		result.GetActor()->TakeDamage(Dmg, DmgEvent, GetController(),this);*/
 	}
-
-
-	}
+	
 }
 
 void AMagicioinCharacter::Attack2()
