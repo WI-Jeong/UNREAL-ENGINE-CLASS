@@ -17,7 +17,7 @@ class SAC1_API ACharacterSelectGameMode : public AGameModeBase
 public:
 	ACharacterSelectGameMode();
 
-private:
+private: 
 	TSubclassOf<UUserWidget>	mCharacterUIClass;
 	TObjectPtr<class UCharacterSelectWidget>	mCharacterWidget;
 	//class UCharacterSelectWidget 위젯먼저 만들고 그걸 부모로 이걸 만든건데

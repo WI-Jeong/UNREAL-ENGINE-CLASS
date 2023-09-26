@@ -2,11 +2,14 @@
 
 
 #include "CharacterSelectGameMode.h"
-#include "CharacterSelectWidget.h"
+//#include "CharacterSelectWidget.h"  
+#include "../SelectPlayer/PlayerSelect.h"
+
+
 
 ACharacterSelectGameMode::ACharacterSelectGameMode()
 {
-	DefaultPawnClass = nullptr;
+	DefaultPawnClass = APlayerSelect::StaticClass();
 
 	static ConstructorHelpers::FClassFinder<UUserWidget>	CharacterUIClass(TEXT("/Script/UMGEditor.WidgetBlueprint'/Game/UI/UI_CharacterSelecet.UI_CharacterSelecet_C'"));
 
@@ -21,30 +24,30 @@ void ACharacterSelectGameMode::InitGame(const FString& MapName, const FString& O
 
 void ACharacterSelectGameMode::InitGameState()
 {
-	Super::InitGameState();
+	Super::InitGameState(); 
 }
 
 void ACharacterSelectGameMode::PostLogin(APlayerController* NewPlayer)
 {
 	Super::PostLogin(NewPlayer);
 
-	NewPlayer->SetShowMouseCursor(true);
+	NewPlayer->SetShowMouseCursor(true);   
 
 	FInputModeUIOnly	input;
 	NewPlayer->SetInputMode(input);
-}
+} 
 
 void ACharacterSelectGameMode::BeginPlay()
 {
 	Super::BeginPlay();
 
-	if (IsValid(mCharacterUIClass))
-	{
-		mCharacterWidget = CreateWidget<UCharacterSelectWidget>(GetWorld(), mCharacterUIClass);
+	//if (IsValid(mCharacterUIClass))
+	//{
+	//	mCharacterWidget = CreateWidget<UCharacterSelectWidget>(GetWorld(), mCharacterUIClass);
 
-		if (IsValid(mCharacterWidget))
-		mCharacterWidget->AddToViewport();
-	}
+	//	if (IsValid(mCharacterWidget))
+	//	mCharacterWidget->AddToViewport();
+	//}
 
 }
 
