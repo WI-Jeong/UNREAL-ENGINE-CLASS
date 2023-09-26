@@ -9,7 +9,8 @@
 
 ACharacterSelectGameMode::ACharacterSelectGameMode()
 {
-	DefaultPawnClass = APlayerSelect::StaticClass();
+	//DefaultPawnClass = APlayerSelect::StaticClass();
+	DefaultPawnClass = nullptr;
 
 	static ConstructorHelpers::FClassFinder<UUserWidget>	CharacterUIClass(TEXT("/Script/UMGEditor.WidgetBlueprint'/Game/UI/UI_CharacterSelecet.UI_CharacterSelecet_C'"));
 
