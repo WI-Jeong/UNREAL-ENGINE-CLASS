@@ -18,6 +18,9 @@
 #include "Blueprint/WidgetBlueprintGeneratedClass.h"
 #include "Animation/WidgetAnimation.h"
 
+
+#include "CameraRig_Rail.h"
+
 #include "UObject/NoExportTypes.h"
 #include "GameInfo.generated.h"
 

@@ -16,7 +16,8 @@ public class SAC1 : ModuleRules
 			"InputCore",
 			"AIModule",
 			"GameplayTasks",
-			"NavigationSystem"
+			"NavigationSystem",
+			"CinematicCamera"
 		});
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });

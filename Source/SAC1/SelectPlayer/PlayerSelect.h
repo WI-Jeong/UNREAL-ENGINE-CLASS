@@ -19,6 +19,22 @@ private:
 	TObjectPtr<AActor>	mCursorPickActor;
 	TObjectPtr<AActor>	mSelectActor;
 
+	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<ACameraRig_Rail>	mCameraRigRail;
+
+	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<ACameraActor>	mKnightCamera;
+
+	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess = "true"))
+	float		mCameraRigTime;
+
+	float		mCameraRigAddTime;
+
+	bool		mCameraTransition;
+
+	EPlayerJob	mSelectJob;
+
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

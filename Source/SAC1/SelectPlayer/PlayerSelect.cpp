@@ -9,6 +9,11 @@ APlayerSelect::APlayerSelect()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	mCameraRigTime = 5.f;
+	mCameraRigAddTime = 0.f;
+	mCameraTransition = false;
+
+	mSelectJob = EPlayerJob::None;
 }
 
 // Called when the game starts or when spawned
@@ -108,7 +113,7 @@ void APlayerSelect::Pick()
 		LOG(TEXT("Tag : %s"), *mSelectActor->Tags[0].ToString());
 		//Tags[0].ToString()); 로 안끝내고 Tags[0];로 끝내면 간접정보 잘못되었다고 오류남.
 
-	/*	if (mSelectActor->Tags[0] == TEXT("Knight"))
+		if (mSelectActor->Tags[0] == TEXT("Knight"))
 		{
 			GetWorld()->GetFirstPlayerController()->SetViewTargetWithBlend(mKnightCamera,
 				mCameraRigTime, EViewTargetBlendFunction::VTBlend_Cubic);
@@ -122,17 +127,17 @@ void APlayerSelect::Pick()
 		{
 			mSelectJob = EPlayerJob::Magicion;
 			mCameraTransition = true;
-			mCameraRigPlayDir = 1.f;
+			//mCameraRigPlayDir = 1.f;
 		}
 
-		GameMode->EnableStartButton(true);
+		//GameMode->EnableStartButton(true);
 	}
 
 	else
 	{
 		if (mSelectJob == EPlayerJob::Magicion)
 		{
-			mCameraRigPlayDir = -1.f;
+			//mCameraRigPlayDir = -1.f;
 			mCameraTransition = true;
 		}
 
@@ -142,7 +147,7 @@ void APlayerSelect::Pick()
 				mCameraRigTime, EViewTargetBlendFunction::VTBlend_Cubic);
 		}
 
-		GameMode->EnableStartButton(false);*/
+		//GameMode->EnableStartButton(false);
 	}
 }
 
