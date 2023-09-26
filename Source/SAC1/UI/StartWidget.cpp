@@ -248,7 +248,7 @@ FReply UStartWidget::NativeOnTouchForceChanged(const FGeometry& MyGeometry,
 
 void UStartWidget::StartButtonClick()
 {
-    UGameplayStatics::OpenLevel(GetWorld(), TEXT("CharacterSelect"));
+    UGameplayStatics::OpenLevel(GetWorld(), TEXT("CharaterSelect"));
 }
 
 void UStartWidget::StartButtonHovered()
