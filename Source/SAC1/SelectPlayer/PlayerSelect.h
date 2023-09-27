@@ -29,6 +29,7 @@ private:
 	float		mCameraRigTime;
 
 	float		mCameraRigAddTime;
+	float		mCameraRigPlayDir; 
 
 	bool		mCameraTransition;
 

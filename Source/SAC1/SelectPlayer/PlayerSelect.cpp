@@ -71,9 +71,9 @@ void APlayerSelect::Tick(float DeltaTime)
 		mCursorPickActor = nullptr;
 	}
 
-	/*if (mCameraTransition)
+	if (mCameraTransition)
 	{
-		mCameraRigAddTime += DeltaTime * mCameraRigPlayDir;
+	//	mCameraRigAddTime += DeltaTime * mCameraRigPlayDir;
 
 		if (mCameraRigAddTime >= mCameraRigTime)
 		{
@@ -90,7 +90,7 @@ void APlayerSelect::Tick(float DeltaTime)
 		float	RigRatio = mCameraRigAddTime / mCameraRigTime;
 
 		mCameraRigRail->CurrentPositionOnRail = RigRatio;
-	}*/
+	}
 
 
 
