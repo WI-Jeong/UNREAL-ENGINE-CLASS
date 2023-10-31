@@ -34,7 +34,7 @@ void ACharacterSelectGameMode::PostLogin(APlayerController* NewPlayer)
 
 	NewPlayer->SetShowMouseCursor(true);   
 
-	FInputModeUIOnly	input;
+	FInputModeGameAndUI	input;
 	NewPlayer->SetInputMode(input);
 } 
 
