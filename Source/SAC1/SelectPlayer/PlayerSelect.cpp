@@ -45,7 +45,7 @@ void APlayerSelect::Tick(float DeltaTime)
 
 			if (IsValid(MeshCom))
 			{
-				MeshCom->SetRenderCustomDepth(false);
+				MeshCom->SetRenderCustomDepth(false); //扁粮波 掺扁
 			}
 		}
 
@@ -55,7 +55,7 @@ void APlayerSelect::Tick(float DeltaTime)
 
 		if (IsValid(MeshCom))
 		{
-			MeshCom->SetRenderCustomDepth(true);
+			MeshCom->SetRenderCustomDepth(true); //货肺款 赤计 难林扁
 		}
 	}
 

@@ -42,13 +42,13 @@ void ACharacterSelectGameMode::BeginPlay()
 {
 	Super::BeginPlay();
 
-	//if (IsValid(mCharacterUIClass))
-	//{
-	//	mCharacterWidget = CreateWidget<UCharacterSelectWidget>(GetWorld(), mCharacterUIClass);
+	if (IsValid(mCharacterUIClass))
+	{
+		mCharacterWidget = CreateWidget<UCharacterSelectWidget>(GetWorld(), mCharacterUIClass);
 
-	//	if (IsValid(mCharacterWidget))
-	//	mCharacterWidget->AddToViewport();
-	//}
+		if (IsValid(mCharacterWidget))
+		mCharacterWidget->AddToViewport();
+	}
 
 }
 
