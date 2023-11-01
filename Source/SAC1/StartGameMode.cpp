@@ -37,13 +37,13 @@ void AStartGameMode::BeginPlay()
 {
 	Super::BeginPlay();
 
-	if (IsValid(mStartUIClass))
-	{
-		mStartWidget = CreateWidget<UStartWidget>(GetWorld(), mStartUIClass);
+	//if (IsValid(mStartUIClass))
+	//{
+	//	mStartWidget = CreateWidget<UStartWidget>(GetWorld(), mStartUIClass);
 
-		if (IsValid(mStartWidget))
-			mStartWidget->AddToViewport();
-	}
+	//	if (IsValid(mStartWidget))
+	//		mStartWidget->AddToViewport();
+	//}
 }
 
 void AStartGameMode::Tick(float DeltaTime)

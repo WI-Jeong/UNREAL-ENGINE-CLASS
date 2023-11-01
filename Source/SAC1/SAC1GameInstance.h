@@ -21,11 +21,19 @@ private:
 	//데이터 테이블의 에셋 타입은 UDataTable
 	//UDataTable*
 	TObjectPtr<UDataTable> mPlayerDataTable;
+	TObjectPtr<UDataTable>	mItemDataTable;
 
 public:
 	virtual void Init();
 
 public:
 	const FPlayerDataTable* FindPlayerData(const FName& Name);
+	const FItemTable* FindItemData(const FName& Name);
+
+	template <typename T>
+	void GetAllItemData(TArray<T*>& ItemArray)
+	{
+		mItemDataTable->GetAllRows<T>(TEXT(""), ItemArray);
+	}
 	
 };

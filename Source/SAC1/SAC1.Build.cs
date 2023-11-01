@@ -9,16 +9,18 @@ public class SAC1 : ModuleRules
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	
 		PublicDependencyModuleNames.AddRange(new string[]
-		{ 
-			"Core", 
-			"CoreUObject", 
-			"Engine",
-			"InputCore",
-			"AIModule",
-			"GameplayTasks",
-			"NavigationSystem",
-			"CinematicCamera"
-		});
+		{
+            "Core",
+            "CoreUObject",
+            "Engine",
+            "InputCore",
+            "AIModule",
+            "GameplayTasks",
+            "NavigationSystem",
+            "UMG",
+            "CinematicCamera",
+            "EnhancedInput"
+        });
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 

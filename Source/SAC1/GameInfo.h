@@ -15,6 +15,10 @@
 #include "Components/Button.h"
 #include "Components/TextBlock.h"
 #include "Components/ProgressBar.h"
+#include "Components/Image.h"
+#include "Components/ListView.h"
+#include "Components/TreeView.h"
+#include "Components/TileView.h"
 #include "Blueprint/WidgetBlueprintGeneratedClass.h"
 #include "Animation/WidgetAnimation.h"
 
@@ -122,6 +126,60 @@ public:
 	float InteractionDistance;
 
 };
+
+UENUM(BlueprintType)
+enum class EItemType : uint8
+{
+	Weapon,
+	Armor
+};
+
+
+UENUM(BlueprintType)
+enum class EItemOption : uint8
+{
+	Attack,
+	Armor,
+	HP,
+	MP,
+	Critical,
+	MoveSpeed,
+	AttackSpeed
+};
+
+USTRUCT(BlueprintType)
+struct FItemOption
+{
+	GENERATED_USTRUCT_BODY()
+
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
+	EItemOption	OptionType;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
+	float	Option;
+};
+
+USTRUCT(BlueprintType)
+struct FItemTable :
+	public FTableRowBase
+{
+	GENERATED_USTRUCT_BODY()
+
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
+	EItemType	ItemType;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
+	UTexture2D* Icon;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
+	FString		Name;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
+	TArray<FItemOption>	ItemOptionArray;
+};
+
 
 
 UENUM(BlueprintType)
