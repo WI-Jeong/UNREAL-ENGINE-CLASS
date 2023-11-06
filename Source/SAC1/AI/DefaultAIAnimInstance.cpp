@@ -3,6 +3,7 @@
 
 #include "DefaultAIAnimInstance.h"
 #include "AIPawn.h"
+#include "AIController.h"
 
 UDefaultAIAnimInstance::UDefaultAIAnimInstance()
 {
@@ -41,6 +42,19 @@ void UDefaultAIAnimInstance::NativeBeginPlay()
 
 void UDefaultAIAnimInstance::AnimNotify_Attack()
 {
+
+	AAIController* Controller = Cast<AAIController>(TryGetPawnOwner()->GetController());
+
+	if (IsValid(Controller))
+	{
+		AActor* Target = Cast<AActor>(Controller->GetBlackboardComponent()->GetValueAsObject(TEXT("Target")));
+
+		if (IsValid(Target))
+		{
+			FDamageEvent	DmgEvent;
+			Target->TakeDamage(10.f, DmgEvent, Controller, TryGetPawnOwner());
+		}
+	}
 
 }
 

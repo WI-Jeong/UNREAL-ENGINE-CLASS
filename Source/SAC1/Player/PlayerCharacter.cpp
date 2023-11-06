@@ -3,6 +3,7 @@
 
 #include "PlayerCharacter.h"
 #include "SAC1PlayerState.h"
+#include "../Camera/HitCameraShake.h"
 
  
 // Sets default values
@@ -120,6 +121,25 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	PlayerInputComponent->BindAction(TEXT("Jumpkey"),
 		EInputEvent::IE_Pressed, this,
 		&APlayerCharacter::Jumpkey);
+}
+
+float APlayerCharacter::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
+{
+	float Dmg = Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
+
+	APlayerController* PlayerCtrl = Cast<APlayerController>(GetController());
+
+	PlayerCtrl->PlayerCameraManager->StartCameraShake(UHitCameraShake::StaticClass());
+
+	//UGameplayStatics::PlayWorldCameraShake(GetController(), UHitCameraShake::StaticClass(),
+	//	FVector::ZeroVector,100.f, 1000.f)
+
+	// 아래 두 함수는 PlayerController가 가지고 있는 CameraManager를 이용해서
+	// 접근해야 한다. static 멤버함수가 아니기 때문이다.
+	//APlayerCameraManager::StartCameraShake(UHitCameraShake::StaticClass());
+	//APlayerCameraManager::StopCameraShake();
+
+	return Dmg;
 }
 
 void APlayerCharacter::MoveFront(float Scale)
