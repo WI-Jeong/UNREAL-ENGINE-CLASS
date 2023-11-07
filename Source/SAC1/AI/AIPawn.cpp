@@ -47,6 +47,10 @@ AAIPawn::AAIPawn()
 	//0~255사이의 원하는 값을 넣어준다.
 	mMesh->SetCustomDepthStencilValue(0);
 
+	//mDissolveCurrentTime = 0.f;
+	//mDissolveTime = 3.f;
+	//mDissolveEnable = false;
+
 
 }
 
@@ -118,6 +122,15 @@ void AAIPawn::OnConstruction(const FTransform& Transform)
 		LOG(TEXT("GameMode Off")); 
 	}
 
+	//// Material Element Count
+	//int32	ElementCount = mMesh->GetNumMaterials();
+
+	//for (int32 i = 0; i < ElementCount; ++i)
+	//{
+	//	UMaterialInstanceDynamic* Mtrl = mMesh->CreateDynamicMaterialInstance(i);
+
+	//	mMaterialArray.Add(Mtrl);
+	//}
 
 
 }
@@ -203,6 +216,24 @@ void AAIPawn::Tick(float DeltaTime)
 	//AddMovementInput(GetActorForwardVector());
 	// mHit가 true일 경우 시간을 계산하여 시간이 지나면 HitColor를 1.0, 1.0, 1.0
 	// 으로 변경해보자.
+
+	//if (mDissolveEnable)
+	//{
+	//	mDissolveCurrentTime += DeltaTime;
+
+	//	if (mDissolveCurrentTime >= mDissolveTime)
+	//		Destroy();
+
+	//	// 비율을 구한다.
+	//	float	Ratio = mDissolveCurrentTime / mDissolveTime;
+	//	Ratio = 1.f - Ratio;
+	//	Ratio = Ratio * 2.f - 1.f;
+
+	//	for (auto& Mtrl : mMaterialArray)
+	//	{
+	//		Mtrl->SetScalarParameterValue(TEXT("Dissolve"), Ratio);
+	//	}
+	//}
 
 }
 

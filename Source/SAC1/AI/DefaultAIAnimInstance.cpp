@@ -42,7 +42,7 @@ void UDefaultAIAnimInstance::NativeBeginPlay()
 
 void UDefaultAIAnimInstance::AnimNotify_Attack()
 {
-
+	LOG(TEXT("DamageTest"));
 	AAIController* Controller = Cast<AAIController>(TryGetPawnOwner()->GetController());
 
 	if (IsValid(Controller))
@@ -56,6 +56,7 @@ void UDefaultAIAnimInstance::AnimNotify_Attack()
 		}
 	}
 
+	
 }
 
 void UDefaultAIAnimInstance::AnimNotify_AttackEnd()

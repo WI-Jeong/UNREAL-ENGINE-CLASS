@@ -44,3 +44,5 @@ void ASerathPawn::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 }
+
+

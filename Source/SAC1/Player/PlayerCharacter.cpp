@@ -123,9 +123,12 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 		&APlayerCharacter::Jumpkey);
 }
 
-float APlayerCharacter::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
+float APlayerCharacter::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, 
+	AController* EventInstigator, AActor* DamageCauser)
 {
 	float Dmg = Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
+
+	LOG(TEXT("CamerashakeTest"));
 
 	APlayerController* PlayerCtrl = Cast<APlayerController>(GetController());
 
@@ -133,6 +136,7 @@ float APlayerCharacter::TakeDamage(float DamageAmount, FDamageEvent const& Damag
 
 	//UGameplayStatics::PlayWorldCameraShake(GetController(), UHitCameraShake::StaticClass(),
 	//	FVector::ZeroVector,100.f, 1000.f)
+
 
 	// 아래 두 함수는 PlayerController가 가지고 있는 CameraManager를 이용해서
 	// 접근해야 한다. static 멤버함수가 아니기 때문이다.
