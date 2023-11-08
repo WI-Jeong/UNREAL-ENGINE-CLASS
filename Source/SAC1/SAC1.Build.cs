@@ -19,7 +19,8 @@ public class SAC1 : ModuleRules
             "NavigationSystem",
             "UMG",
             "CinematicCamera",
-            "EnhancedInput"
+            "EnhancedInput",
+			"Niagara"
         });
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
