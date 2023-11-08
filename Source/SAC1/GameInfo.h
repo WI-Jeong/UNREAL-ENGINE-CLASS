@@ -21,6 +21,8 @@
 #include "Components/TileView.h"
 #include "Blueprint/WidgetBlueprintGeneratedClass.h"
 #include "Animation/WidgetAnimation.h"
+#include "NiagaraComponent.h"
+#include "NiagaraFunctionLibrary.h"
 
 
 #include "CameraRig_Rail.h"

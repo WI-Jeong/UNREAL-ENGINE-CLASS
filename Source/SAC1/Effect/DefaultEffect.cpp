@@ -9,13 +9,24 @@ ADefaultEffect::ADefaultEffect()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	mRoot = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
 	mParticle = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("Particle"));
+	mNiagara = CreateDefaultSubobject<UNiagaraComponent>(TEXT("Niagara"));
 	mAudio = CreateDefaultSubobject<UAudioComponent>(TEXT("Audio"));
 
-	//mParticle이 root가 될거임
-	SetRootComponent(mParticle);
-	//부모지정
-	mAudio->SetupAttachment(mParticle);
+	////mParticle이 root가 될거임
+	//SetRootComponent(mParticle);
+	////부모지정
+	//mAudio->SetupAttachment(mParticle);
+
+
+	SetRootComponent(mRoot);
+
+	mAudio->SetupAttachment(mRoot);
+	mParticle->SetupAttachment(mRoot);
+	mNiagara->SetupAttachment(mRoot);
+
+	mRoot->bVisualizeComponent = true;
 
 }
 
@@ -31,6 +42,21 @@ void ADefaultEffect::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+}
+
+void ADefaultEffect::SetNiagaraAsset(const FString& Path)
+{
+	UNiagaraSystem* Particle = LoadObject<UNiagaraSystem>(nullptr,
+		*Path);
+
+	if (IsValid(Particle))
+		mNiagara->SetAsset(Particle);
+}
+
+void ADefaultEffect::SetNiagaraAsset(UNiagaraSystem* Particle)
+{
+	if (IsValid(Particle))
+		mNiagara->SetAsset(Particle);
 }
 
 void ADefaultEffect::SetParticleAsset(const FString& Path)
@@ -49,10 +75,28 @@ void ADefaultEffect::SetParticleAsset(const FString& Path)
 	}
 }
 
+void ADefaultEffect::SetParticleAsset(UParticleSystem* Particle)
+{
+	if (IsValid(Particle))
+	{
+		mParticle->SetTemplate(Particle);
+		mParticle->OnSystemFinished.AddDynamic(this, &ADefaultEffect::ParticleFinish);
+	}
+}
+
 void ADefaultEffect::SetAudioAsset(const FString& Path)
 {
 	USoundBase*Sound = LoadObject< USoundBase>(nullptr, *Path);
 
+	if (IsValid(Sound))
+	{
+		mAudio->SetSound(Sound);
+		mAudio->Play();
+	}
+}
+
+void ADefaultEffect::SetAudioAsset(USoundBase* Sound)
+{
 	if (IsValid(Sound))
 	{
 		mAudio->SetSound(Sound);

@@ -18,7 +18,16 @@ public:
 protected:
 
 	UPROPERTY(Category = Component, VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<USceneComponent> mRoot;
+
+	UPROPERTY(Category = Component, VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UParticleSystemComponent> mParticle;
+
+
+	UPROPERTY(Category = Component, VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<UNiagaraComponent> mNiagara;
+
+
 
 	UPROPERTY(Category = Component, VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UAudioComponent> mAudio;
@@ -33,8 +42,12 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 public:
+	void SetNiagaraAsset(const FString& Path);
+	void SetNiagaraAsset(UNiagaraSystem* Particle);
 	void SetParticleAsset(const FString& Path);
+	void SetParticleAsset(UParticleSystem* Particle);
 	void SetAudioAsset(const FString& Path);
+	void SetAudioAsset(USoundBase* Sound);
 
 private:
 	UFUNCTION()
