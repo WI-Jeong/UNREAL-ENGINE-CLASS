@@ -12,10 +12,18 @@ APlayerCharacter::APlayerCharacter()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	mTrail = CreateDefaultSubobject<UNiagaraComponent>(TEXT("Trail"));
 	mSpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArm"));
 	mSpringArm->SetRelativeLocation(FVector(0.0, 0.0, 160.0));
 	mSpringArm->SetRelativeRotation(FRotator(-10.0, 90.0, 0.0));
 	mSpringArm->TargetArmLength = 500.f;
+
+	static ConstructorHelpers::FObjectFinder<UNiagaraSystem>	TrailAsset(TEXT("/Script/Niagara.NiagaraSystem'/Game/Niagara/NS_Trail.NS_Trail'"));
+
+	if (TrailAsset.Succeeded())
+		mTrail->SetAsset(TrailAsset.Object);
+
+	mTrail->SetupAttachment(GetMesh());
 
 	//부모 컴포넌트로 Mesh를 지정한다.
 	mSpringArm->SetupAttachment(GetMesh());
@@ -64,6 +72,9 @@ APlayerCharacter::APlayerCharacter()
 void APlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+
+	mTrail->SetRelativeLocation(FVector(0.0, 0.0,
+		GetCapsuleComponent()->GetScaledCapsuleHalfHeight()));
 
 	// SkeletalMesh는 GetAnimInstance 함수를 지원해주고 있다.
 	// 이 함수는 SkeletalMesh에 지정된 AnimInstance 클래스를 이용해서 생성

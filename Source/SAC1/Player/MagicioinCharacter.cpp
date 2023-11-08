@@ -45,6 +45,21 @@ AMagicioinCharacter::AMagicioinCharacter()
 
 }
 
+void AMagicioinCharacter::BeginPlay()
+{
+
+	Super::BeginPlay();
+
+	LOG(TEXT("MagicionCharacter Begin"));
+
+	FLinearColor	Color(1.f, 0.f, 0.f, 1.f);
+	mTrail->SetNiagaraVariableLinearColor(TEXT("Color"), Color);
+
+	mTrail->SetRelativeScale3D(FVector(3.f, 3.f, 3.f));
+
+
+}
+
 void AMagicioinCharacter::Attack1()
 {
 	//근접공격. 플레이어 전방으로 일정 거리만큼을 공격거리로 두고 

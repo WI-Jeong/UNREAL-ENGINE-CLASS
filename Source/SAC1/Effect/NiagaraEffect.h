@@ -3,7 +3,8 @@
 #pragma once
 
 #include "../GameInfo.h"
-#include "GameFramework/Actor.h"
+#include "DefaultEffect.h"
+//#include "GameFramework/Actor.h"
 #include "NiagaraEffect.generated.h"
 
 UCLASS()
@@ -14,14 +15,6 @@ class SAC1_API ANiagaraEffect : public AActor
 public:	
 	// Sets default values for this actor's properties
 	ANiagaraEffect();
-
-protected:
-
-	UPROPERTY(Category = Component, VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
-	TObjectPtr<USceneComponent> mRoot;
-
-	UPROPERTY(Category = Component, VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
-	TObjectPtr<UNiagaraComponent> mNiagara;
 
 protected:
 	// Called when the game starts or when spawned

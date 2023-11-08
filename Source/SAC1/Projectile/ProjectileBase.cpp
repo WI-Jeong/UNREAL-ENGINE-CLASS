@@ -11,6 +11,7 @@ AProjectileBase::AProjectileBase()
 
 	mBody = CreateDefaultSubobject< UBoxComponent>(TEXT("Body"));
 	mMesh = CreateDefaultSubobject< UStaticMeshComponent>(TEXT("Mesh"));
+	mTrail = CreateDefaultSubobject<UNiagaraComponent>(TEXT("Trail"));
 	mMovement = CreateDefaultSubobject< UProjectileMovementComponent>(TEXT("Movement"));
 	
 	
@@ -26,6 +27,7 @@ AProjectileBase::AProjectileBase()
 
 	
 	mMesh->SetupAttachment(mBody);
+	mTrail->SetupAttachment(mMesh);
 
 	mMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 
@@ -66,6 +68,21 @@ void AProjectileBase::ProjectileStop(const FHitResult& ImpactResult)
 {
 	LOG(TEXT("Projectile Stop"));
 	Destroy();
+}
+
+void AProjectileBase::SetTrailAsset(const FString& Path)
+{
+	UNiagaraSystem* Trail = LoadObject<UNiagaraSystem>(nullptr,
+		*Path);
+
+	if (IsValid(Trail))
+		mTrail->SetAsset(Trail);
+}
+
+void AProjectileBase::SetTrailAsset(UNiagaraSystem* Trail)
+{
+	if (IsValid(Trail))
+		mTrail->SetAsset(Trail);
 }
 
 void AProjectileBase::SetMeshAsset(const FString& Path)

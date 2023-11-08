@@ -31,6 +31,9 @@ protected:
 	UPROPERTY(Category = Camera, VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true")) 
 	TObjectPtr<UCameraComponent> mCamera;
 
+	UPROPERTY(Category = Component, VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<UNiagaraComponent> mTrail;
+
 	bool mCameraRotationEnable;
 
 	TObjectPtr< UPlayerAnimInstance> mPlayerAnim;

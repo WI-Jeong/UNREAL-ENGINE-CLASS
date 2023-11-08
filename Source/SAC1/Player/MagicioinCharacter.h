@@ -16,6 +16,9 @@ class SAC1_API AMagicioinCharacter : public APlayerCharacter
 public:
 	AMagicioinCharacter();
 
+protected:
+	virtual void BeginPlay() override;
+
 public:
 	virtual void Attack1();
 	virtual void Attack2();

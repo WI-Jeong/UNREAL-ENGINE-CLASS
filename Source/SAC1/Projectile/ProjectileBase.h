@@ -22,6 +22,11 @@ protected:
 	UPROPERTY(Category = Component, VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UStaticMeshComponent> mMesh;
 
+
+	UPROPERTY(Category = Component, VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<UNiagaraComponent>	mTrail;
+
+
 	UPROPERTY(Category = Component, VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UProjectileMovementComponent> mMovement;
 
@@ -40,11 +45,15 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+
+
 public:
 	UFUNCTION()
 	void ProjectileStop(const FHitResult& ImpactResult);
 
 public:
+	void SetTrailAsset(const FString& Path);
+	void SetTrailAsset(UNiagaraSystem* Trail);
 	void SetMeshAsset(const FString& Path);
 	void SetCollisionProfile(const FName& Name);
 	void SetParticleAsset(const FString& Path);
