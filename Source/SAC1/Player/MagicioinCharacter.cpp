@@ -163,6 +163,7 @@ void AMagicioinCharacter::Attack2()
 		GetActorRotation(), ActorParam);
 
 	Projectile->SetMeshAsset(TEXT("/Script/Engine.StaticMesh'/Game/BlueprintTest/Sphere1.Sphere1'"));
+
 	Projectile->SetCollisionProfile(TEXT("PlayerProjectile"));
 }
 //
