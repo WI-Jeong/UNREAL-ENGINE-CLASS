@@ -54,8 +54,9 @@ void AMagicioinCharacter::BeginPlay()
 
 	FLinearColor	Color(1.f, 0.f, 0.f, 1.f);
 	mTrail->SetNiagaraVariableLinearColor(TEXT("Color"), Color);
+	mTrail->SetNiagaraVariableFloat(TEXT("Width"), 50.f);
 
-	mTrail->SetRelativeScale3D(FVector(3.f, 3.f, 3.f));
+	//mTrail->SetRelativeScale3D(FVector(3.f, 3.f, 3.f));
 
 
 }
