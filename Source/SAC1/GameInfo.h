@@ -24,6 +24,14 @@
 #include "NiagaraComponent.h"
 #include "NiagaraFunctionLibrary.h"
 
+#include "MediaPlayer.h"
+#include "MediaTexture.h"
+#include "MediaSoundComponent.h"
+#include "MediaSource.h"
+
+#include "LevelSequence.h"
+#include "LevelSequencePlayer.h"
+
 
 #include "CameraRig_Rail.h"
 

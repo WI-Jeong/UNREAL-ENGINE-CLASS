@@ -20,7 +20,10 @@ public class SAC1 : ModuleRules
             "UMG",
             "CinematicCamera",
             "EnhancedInput",
-			"Niagara"
+			"Niagara",
+			"MovieScene",
+			"LevelSequence",
+			"MediaAssets"
         });
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
