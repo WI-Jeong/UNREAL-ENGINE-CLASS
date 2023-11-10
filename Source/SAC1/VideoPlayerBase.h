@@ -20,11 +20,18 @@ protected:
 	TObjectPtr<USceneComponent>	mRoot;
 
 	UPROPERTY(Category = Component, VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
-	TObjectPtr<UMediaSoundComponent>	mMediaSound;
+	TObjectPtr<UMediaSoundComponent>	mMediaSound; 
 
 
-	//UPROPERTY(Category = Component, EditAnywhere, BlueprintintReadWrite, meta = (AllowPrivateAccess = "true"))
-	//TObjectPtr<UMediaSoundComponent>	mMediaSound;
+	UPROPERTY(Category = Component, EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<UMediaPlayer>	mMediaPlayer;
+
+	UPROPERTY(Category = Component, EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<UMediaSource>	mMediaSource;
+
+
+	UPROPERTY(Category = Component, EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
+	bool mAutoPlay;
 
 protected:
 	// Called when the game starts or when spawned
@@ -33,5 +40,10 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+public:
+	UFUNCTION(Blueprintcallable)
+	void PlayVideo();
+
 
 };

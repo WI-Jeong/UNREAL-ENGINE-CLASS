@@ -14,10 +14,11 @@ AVideoPlayerBase::AVideoPlayerBase()
 
 	SetRootComponent(mRoot);
 
-	mMediaSound->SetupAttachment(mRoot);
-
+	mMediaSound->SetupAttachment(mRoot); 
 
 	mRoot->bVisualizeComponent = true;
+
+	mAutoPlay = true;
 
 }
 
@@ -25,6 +26,13 @@ AVideoPlayerBase::AVideoPlayerBase()
 void AVideoPlayerBase::BeginPlay()
 {
 	Super::BeginPlay();
+
+	if (mAutoPlay)
+	{
+		mMediaPlayer->OpenSource(mMediaSource);
+		mMediaPlayer->Play();
+	}
+
 	
 }
 
@@ -33,5 +41,9 @@ void AVideoPlayerBase::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+}
+
+void AVideoPlayerBase::PlayVideo()
+{
 }
 
