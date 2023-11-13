@@ -25,7 +25,7 @@ protected:
 	UPROPERTY(Category = Data, EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
 	FMovieSceneSequencePlaybackSettings mSetting;
 
-	ULevelSequencePlayer* mSequencePlayer;
+	TObjectPtr<ULevelSequencePlayer> mSequencePlayer;
 	ALevelSequenceActor* mSequenceActor;
 
 public:
