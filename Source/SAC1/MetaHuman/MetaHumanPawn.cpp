@@ -9,6 +9,15 @@ AMetaHumanPawn::AMetaHumanPawn()
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	mRoot = CreateDefaultSubobject<UCapsuleComponent>(TEXT("Root"));
+	mBody = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Body"));
+	mMovement = CreateDefaultSubobject<UFloatingPawnMovement>(TEXT("Movement"));
+
+	SetRootComponent(mRoot);
+
+	mBody->SetupAttachment(mRoot);
+	mMovement->SetUpdatedComponent(mRoot);
+
 }
 
 // Called when the game starts or when spawned

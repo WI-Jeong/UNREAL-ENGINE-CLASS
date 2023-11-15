@@ -16,6 +16,17 @@ public:
 	AMetaHumanPawn();
 
 protected:
+	UPROPERTY(Category = Component, VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<UCapsuleComponent>	mRoot;
+
+	UPROPERTY(Category = Component, VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<USkeletalMeshComponent>	mBody;
+
+
+	UPROPERTY(Category = Component, VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<UFloatingPawnMovement>	mMovement;
+
+protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 

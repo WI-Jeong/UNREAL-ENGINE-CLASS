@@ -39,7 +39,11 @@ EBTNodeResult::Type UBTTask_MoveInteraction::ExecuteTask(
 	{
 		Controller->StopMovement(); //강제로 이동 멈추기
 
-		AIPawn->GetAIAnimInstance()->ChangeAnim(EAIAnimType::Idle); //멈췄을 때는 아이들로 돌아가라
+
+		if (AIPawn->GetAIAnimInstance())
+		{
+			AIPawn->GetAIAnimInstance()->ChangeAnim(EAIAnimType::Idle); //멈췄을 때는 아이들로 돌아가라
+		}
 
 		return EBTNodeResult::Failed;
 	}
@@ -47,7 +51,12 @@ EBTNodeResult::Type UBTTask_MoveInteraction::ExecuteTask(
 	// 타겟의 위치로 NavMesh를 활용하여 길을 찾아 이동시킨다.
 	UAIBlueprintHelperLibrary::SimpleMoveToActor(Controller, Target);
 
-	AIPawn->GetAIAnimInstance()->ChangeAnim(EAIAnimType::Run);
+	if (AIPawn->GetAIAnimInstance())
+	{
+		AIPawn->GetAIAnimInstance()->ChangeAnim(EAIAnimType::Run);
+	}
+
+
 
 
 	return EBTNodeResult::InProgress;
@@ -78,7 +87,11 @@ void UBTTask_MoveInteraction::TickTask(UBehaviorTreeComponent& OwnerComp, uint8*
 
 		Controller->StopMovement(); //강제로 이동 멈추기
 
-		AIPawn->GetAIAnimInstance()->ChangeAnim(EAIAnimType::Idle);
+
+		if (AIPawn->GetAIAnimInstance())
+		{
+			AIPawn->GetAIAnimInstance()->ChangeAnim(EAIAnimType::Idle);
+		}
 
 		return;
 	}
@@ -93,7 +106,10 @@ void UBTTask_MoveInteraction::TickTask(UBehaviorTreeComponent& OwnerComp, uint8*
 
 		Controller->StopMovement(); //강제로 이동 멈추기
 
-		AIPawn->GetAIAnimInstance()->ChangeAnim(EAIAnimType::Idle);
+		if (AIPawn->GetAIAnimInstance())
+		{
+			AIPawn->GetAIAnimInstance()->ChangeAnim(EAIAnimType::Idle);
+		}
 
 		return;
 	}

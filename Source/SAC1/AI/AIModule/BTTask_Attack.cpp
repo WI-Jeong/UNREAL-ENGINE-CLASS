@@ -40,9 +40,12 @@ EBTNodeResult::Type UBTTask_Attack::ExecuteTask(
 	if (!IsValid(Target))
 	{
 		Controller->StopMovement(); //이제는 이동이 아니라 어택이기 때문에 꼭 StopMovement
-
-		AIPawn->GetAIAnimInstance()->ChangeAnim(EAIAnimType::Idle); //타겟 없으면 idle로
-
+		
+		if (AIPawn->GetAIAnimInstance())
+		{
+			AIPawn->GetAIAnimInstance()->ChangeAnim(EAIAnimType::Idle); //타겟 없으면 idle로
+		}
+			
 		return EBTNodeResult::Failed;
 	}
 
@@ -53,7 +56,13 @@ EBTNodeResult::Type UBTTask_Attack::ExecuteTask(
 
 	//애니메이션 run이 아니라 attack으로 바궈주기
 	//AIPawn->GetAIAnimInstance()->ChangeAnim(EAIAnimType::Run);
-	AIPawn->GetAIAnimInstance()->ChangeAnim(EAIAnimType::Attack);
+
+	if (AIPawn->GetAIAnimInstance())
+	{
+		AIPawn->GetAIAnimInstance()->ChangeAnim(EAIAnimType::Attack);
+	}
+	
+	//AIPawn->GetAIAnimInstance()->ChangeAnim(EAIAnimType::Attack);
 
 
 	return EBTNodeResult::InProgress;
@@ -84,7 +93,12 @@ void UBTTask_Attack::TickTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemo
 
 		Controller->StopMovement(); //강제로 이동 멈추기
 
-		AIPawn->GetAIAnimInstance()->ChangeAnim(EAIAnimType::Idle);
+		//AIPawn->GetAIAnimInstance()->ChangeAnim(EAIAnimType::Idle);
+
+		if (AIPawn->GetAIAnimInstance())
+		{
+			AIPawn->GetAIAnimInstance()->ChangeAnim(EAIAnimType::Idle);
+		}
 
 		return;
 	}
@@ -99,7 +113,12 @@ void UBTTask_Attack::TickTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemo
 
 		Controller->StopMovement(); //강제로 이동 멈추기
 
-		AIPawn->GetAIAnimInstance()->ChangeAnim(EAIAnimType::Idle);
+		//AIPawn->GetAIAnimInstance()->ChangeAnim(EAIAnimType::Idle);
+
+		if (AIPawn->GetAIAnimInstance())
+		{
+			AIPawn->GetAIAnimInstance()->ChangeAnim(EAIAnimType::Idle);
+		}
 
 		return;
 	}
