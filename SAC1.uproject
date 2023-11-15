@@ -58,6 +58,15 @@
 		{
 			"Name": "HairStrands",
 			"Enabled": true
+		},
+		{
+			"Name": "MetaHumanSDK",
+			"Enabled": true,
+			"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/product/bdea302c21ad4664a7d28a2a93d40b3f"
+		},
+		{
+			"Name": "MetaHuman",
+			"Enabled": true
 		}
 	]
 }
