@@ -93,9 +93,12 @@ void AAIPawn::OnConstruction(const FTransform& Transform)
 
 		const FAIDataTable* Data = FindAIData(mName);
 
-		mAIState->SetInfo(mName.ToString(), Data);
+		if (Data)
+		{
+			mAIState->SetInfo(mName.ToString(), Data);
 
-		mMovement->MaxSpeed = Data->MoveSpeed;
+			mMovement->MaxSpeed = Data->MoveSpeed;
+		}
 	}
 
 

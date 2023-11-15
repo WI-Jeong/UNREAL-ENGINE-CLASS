@@ -37,7 +37,7 @@ protected:
 	UPROPERTY(Category = Component, VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<class UAIState>	mAIState;
 
-	UPROPERTY(Category = Component, VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(Category = Component, EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
 	FName		mName;
 
 	TObjectPtr<class UDefaultAIAnimInstance>	mAnim;
