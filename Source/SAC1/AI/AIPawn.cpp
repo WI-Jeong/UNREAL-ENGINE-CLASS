@@ -280,11 +280,60 @@ void AAIPawn::LoadAIData()
 	mAIDataTable = LoadObject<UDataTable>(nullptr,
 		TEXT("/Script/Engine.DataTable'/Game/Data/DT_AIData.DT_AIData'"));
 }
+/*
+LoadAIData 이 함수는 AAIPawn 클래스의 멤버 함수로 선언되어 있다.
+함수의 목적은 아마도 어떤 AI 데이터를 로드하는 것
+
+mAIDataTable
+이 함수에서 사용되는 mAIDataTable은 UDataTable 타입의 멤버 변수
+데이터 테이블은 언리얼 엔진에서 구조화된 데이터를 저장하고 관리하는 데 사용되는 자료구조
+즉, LoadAIData 함수에서 AI 관련 데이터를 담은 데이터 테이블을 로드하고자 하는 것
+
+LoadObject<UDataTable>(nullptr, TEXT(""))
+UDataTable 타입의 오브젝트를 로드하는 엔진 함수
+LoadObject 함수는 특정 클래스 타입의 오브젝트를 로드하는 데 사용됨. 여기서는 UDataTable 타입을 로드
+
+첫 번째 매개변수인 nullptr는 로드할 오브젝트의 경로. 
+nullptr로 지정하면 기본 경로에서 해당 클래스 타입의 오브젝트를 찾아 로드
+
+두 번째 매개변수인 TEXT("")는 로드할 오브젝트의 경로를 나타내는 문자열
+
+
+결과적으로, LoadAIData 함수는 UDataTable 타입의 데이터를 로드하여 mAIDataTable에 할당하려는 것
+
+*/
 
 const FAIDataTable* AAIPawn::FindAIData(const FName& Name)
 { 
 	return mAIDataTable->FindRow<FAIDataTable>(Name, TEXT(""));
 }
+/*
+함수의 목적은 특정 이름(Name)에 해당하는 AI 데이터를 찾아 반환하는 것
+
+매개변수 const FName& Name
+FName 타입의 변수
+어떤 식별자나 이름을 나타냄
+
+mAIDataTable->FindRow<FAIDataTable>(Name, TEXT(""))
+->mAIDataTable이라는 UDataTable 타입의 멤버 변수에서 특정 행을 찾는 엔진 함수를 호출
+
+FindRow<FAIDataTable>(Name, TEXT(""))
+->데이터 테이블에서 특정 행을 찾아 반환하는 함수
+
+FAIDataTable은 찾고자 하는 행의 구조체 타입으로, 
+이 행이 어떤 형식의 데이터를 담고 있는지를 나타냄
+
+Name은 찾고자 하는 행의 식별자나 이름
+
+const FAIDataTable*
+함수의 반환 타입은 const FAIDataTable*으로 찾은 행의 데이터를 나타내는 FAIDataTable 구조체에 대한 포인터를 반환
+반환된 포인터가 nullptr일 경우 해당 행을 찾지 못한 것
+
+따라서, 이 함수는 mAIDataTable에서 특정 이름에 해당하는 AI 데이터를 찾아서 그 데이터에 대한 포인터를 반환하는 것
+함수의 완전한 동작은 함수가 호출되는 곳이나 함수가 속한 클래스의 다른 부분에서 확인할 수 있음.
+
+
+*/
 
 
 
@@ -292,6 +341,82 @@ void AAIPawn::SetSpawnPoint(AAISpawnPoint* SpawnPoint)
 {
 	mSpawnPoint = SpawnPoint;
 }
+/*
+SetSpawnPoint 함수: 함수의 목적은 AI 캐릭터의 스폰 지점 설정
+
+매개변수 SpawnPoint
+:함수는 AAISpawnPoint* SpawnPoint라는 포인터 타입의 매개변수를 받는다.
+이는 AAISpawnPoint 클래스 또는 그의 파생 클래스의 객체를 가리키는 포인터
+
+mSpawnPoint
+: mSpawnPoint는 AAISpawnPoint* 타입의 멤버 변수
+이 함수에서는 함수의 매개변수 SpawnPoint로 전달된 값을 mSpawnPoint에 할당하고 있다
+
+따라서
+이 함수의 주요 역할은 주어진 스폰 지점 객체를 mSpawnPoint에 할당하여 
+나중에 이를 사용할 수 있도록 하는 것
+
+*/
+
+
+/*
+Patrol부분 빠진거. 
+
+void AAIPawn::SetPatrolPointArray(
+	const TArray<TObjectPtr<class APatrolPoint>>& Array)
+{
+	mPatrolPointArray = Array;
+
+	mPatrolPoint.Add(mSpawnPoint->GetActorLocation());
+
+	for (auto& Point : mPatrolPointArray)
+	{
+		mPatrolPoint.Add(Point->GetActorLocation());
+	}
+}
+
+-->>
+SetPatrolPointArray 함수의 목적은 AI 캐릭터의 순찰 지점 설정
+
+
+매개변수 Array
+->
+함수는 const TArray<TObjectPtr<class APatrolPoint>>& Array라는 매개변수를 받는데 이는
+ APatrolPoint 클래스나 그의 파생 클래스의 객체를 가리키는 포인터로 이루어진 배열(TArray)
+
+
+ mPatrolPointArray
+ ->mPatrolPointArray는 TArray<TObjectPtr<class APatrolPoint>> 타입의 멤버 변수
+ 이 함수에서는 함수의 매개변수 Array로 전달된 값을 mPatrolPointArray에 할당하고 있다.
+
+ mPatrolPoint
+ ->mPatrolPoint는 TArray<FVector> 타입의 멤버 변수
+ 이 함수에서는 순찰 지점의 위치 정보를 저장하는 mPatrolPoint 배열을 초기화하고 있다.
+
+ mSpawnPoint->GetActorLocation()
+ AI 캐릭터의 스폰 지점의 위치를 가져와서 mPatrolPoint 배열에 추가하고 있다.
+
+
+ for (auto& Point : mPatrolPointArray)
+ ->이 루프는 mPatrolPointArray 배열의 각 순찰 지점에 대해 해당 지점의 위치를 가져와서 mPatrolPoint 배열에 추가하고 있다.
+
+ 따라서
+ 이 함수는 AI 캐릭터의 순찰 지점을 설정하고, 
+ 해당 지점들의 위치를 mPatrolPoint 배열에 저장하는 역할을 수행
+ 이후에 이 배열을 사용하여 AI의 순찰 동작이나 특정 동작에 활용할 수 있다.
+
+
+
+
+
+void AAIPawn::NextPatrol()
+{
+	mPatrolIndex = (mPatrolIndex + 1) % mPatrolPoint.Num();
+}
+
+
+
+*/
 
 void AAIPawn::OnConstruction(const FTransform& Transform)
 {
@@ -348,6 +473,24 @@ void AAIPawn::OnConstruction(const FTransform& Transform)
 
 	//	mMaterialArray.Add(Mtrl);
 	//}
+
+	/*
+	내 코드에서 빠진 부분
+
+		mPatrolIndex = 1;
+
+	// Material Element Count
+	int32	ElementCount = mMesh->GetNumMaterials();
+
+	for (int32 i = 0; i < ElementCount; ++i)
+	{
+		UMaterialInstanceDynamic* Mtrl = mMesh->CreateDynamicMaterialInstance(i);
+
+		mMaterialArray.Add(Mtrl);
+	}
+
+
+	*/
 
 
 }
