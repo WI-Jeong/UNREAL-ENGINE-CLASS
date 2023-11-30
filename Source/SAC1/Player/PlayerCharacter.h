@@ -105,5 +105,8 @@ public:
 	virtual void Attack2();
 	/// 
 	virtual void Attack3();
-	////
+	
+	//	void FootInteraction(bool Left);
+
+
 };

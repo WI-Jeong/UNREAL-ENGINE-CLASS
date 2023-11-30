@@ -414,7 +414,18 @@ void AAIPawn::NextPatrol()
 	mPatrolIndex = (mPatrolIndex + 1) % mPatrolPoint.Num();
 }
 
+NextPatrol 함수의 목적은 AI 캐릭터가 다음 순찰 지점으로 이동하는 것
 
+mPatrolIndex
+->int32변수. 이 변수는 현재 AI 캐릭터가 어떤 순찰 지점에 있는지를 나타내는 인덱스로 사용됨.
+
+(mPatrolIndex + 1) % mPatrolPoint.Num()
+->다음 순찰 지점의 인덱스를 계산하는 수식
+현재 인덱스에서 1을 더하고 순찰 지점 배열의 크기로 나눈 나머지를 계산
+이렇게 함으로써 배열의 범위를 벗어나지 않도록 인덱스를 조절
+
+
+따라서, 이 함수는 현재 인덱스를 다음 순찰 지점의 인덱스로 업데이트한다.
 
 */
 
@@ -495,12 +506,113 @@ void AAIPawn::OnConstruction(const FTransform& Transform)
 
 }
 
+
+/*
+
+void AAIPawn::OnConstruction(const FTransform& Transform)
+{		
+	//OnConstruction함수는 액터가 생성되거나 편집 도중에 변경될 때 호출되는 함수
+	//
+
+
+	Super::OnConstruction(Transform);
+
+	// AIDataTable 애셋을 불러오지 않았을 경우 애셋을 불러온다.
+	if (!IsValid(mAIDataTable))
+		LoadAIData();
+
+	if (IsValid(mAIDataTable))
+	{
+		LOG(TEXT("AIDataTable Valid"));
+
+		const FAIDataTable* Data = FindAIData(mName);
+
+		if (Data)
+		{
+			mAIState->SetInfo(mName.ToString(), Data);
+
+			mMovement->MaxSpeed = Data->MoveSpeed;
+		}
+	}
+
+
+	LOG(TEXT("OnConstruction : %s"), *mName.ToString());
+
+	if(IsValid(GetWorld()->GetGameInstance()))
+	{
+		LOG(TEXT("GameInstance On"));
+		//매크로는 { }로 묶어주나봄..
+	}
+
+	else
+	{
+		LOG(TEXT("GameInstance Off"));
+	}
+
+	if(IsValid(GetWorld()->GetAuthGameMode()))
+	{
+		LOG(TEXT("GameMode On"));
+	}
+
+	else
+	{
+		LOG(TEXT("GameMode Off"));
+	}
+
+	// Material Element Count
+	int32	ElementCount = mMesh->GetNumMaterials();
+
+	for (int32 i = 0; i < ElementCount; ++i)
+	{
+		UMaterialInstanceDynamic* Mtrl = mMesh->CreateDynamicMaterialInstance(i);
+
+		mMaterialArray.Add(Mtrl);
+	}
+
+		mPatrolIndex = 1;
+
+	 Material Element Count
+	int32	ElementCount = mMesh->GetNumMaterials();
+
+	for (int32 i = 0; i < ElementCount; ++i)
+	{
+		UMaterialInstanceDynamic* Mtrl = mMesh->CreateDynamicMaterialInstance(i);
+
+		mMaterialArray.Add(Mtrl);
+	}
+
+}
+
+*/
+
+
 // Called when the game starts or when spawned
 void AAIPawn::BeginPlay()
 {
 	Super::BeginPlay();
 
 	mAnim = Cast<UDefaultAIAnimInstance>(mMesh->GetAnimInstance());
+
+	/*
+	
+	내 코드에서 빠진 부분
+
+	// SpawnPoint 없이 바로 배치해서 사용하며 PatrolPoint를 넣어준 경우
+	// 이 안으로 들어오게 될 것이다.
+	if (!mPatrolPoint.IsEmpty())
+	{
+		FVector	Loc = GetActorLocation();
+		Loc.Z -= mBody->GetScaledCapsuleHalfHeight();
+
+		mPatrolPoint.Add(Loc);
+
+		for (auto& Point : mPatrolPointArray)
+		{
+			mPatrolPoint.Add(Point->GetActorLocation());
+		}
+	}
+	
+	*/
 	
 }
 
@@ -553,8 +665,6 @@ float AAIPawn::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, A
 		}
 
 	}
-
-
 
 	mHit = true;
 
@@ -628,6 +738,26 @@ void AAIPawn::DeathEnd()
 	mDissolveEnable = true;
 }
 
+/*
+	AI 컨트롤러 클래스에서 사용되는 두 개의 가상 함수
+	virtual void OnPossess(APawn* aPawn) override;
+	virtual void OnUnPossess() override;
 
+	OnPossess(APawn* aPawn)
+	->AI 컨트롤러가 AI 캐릭터를 소유할 때 호출됨.
+	APawn* aPawn 매개변수로 소유된 AI 캐릭터에 대한 포인터가 전달됨.
+	일반적으로 이 함수에서는 AI 캐릭터를 초기화하거나 순찰이나 특정 동작을 시작하는 등의 초기 설정을 수행
+
+
+	OnUnPossess()
+	->AI 컨트롤러가 AI 캐릭터의 소유를 해제할 때 호출됨.
+	소유를 해제하는 시점은 주로 AI 캐릭터가 사망하거나 특정 상황에서 소유를 해제할 때
+	이 함수에서는 소유를 해제한 AI 캐릭터에 대한 정리 작업이나 추가적인 동작을 수행할 수 있다.
+
+
+
+
+
+*/
 
 

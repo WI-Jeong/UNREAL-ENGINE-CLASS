@@ -55,7 +55,6 @@ APlayerCharacter::APlayerCharacter()
 
 	GetCapsuleComponent()->CanCharacterStepUpOn =
 		ECanBeCharacterBase::ECB_No;
-
 	//GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
 
 	GetMesh()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
@@ -141,16 +140,15 @@ float APlayerCharacter::TakeDamage(float DamageAmount, FDamageEvent const& Damag
 
 	LOG(TEXT("CamerashakeTest"));
 
+	/*UGameplayStatics::PlayWorldCameraShake(GetController(),
+		UHitCameraShake::StaticClass(), FVector::ZeroVector,
+		100.f, 1000.f);*/
+
+		// 아래 두 함수는 PlayerController가 가지고 있는 CameraManager를 이용해서
+		// 접근해야 한다. static 멤버함수가 아니기 때문이다.
 	APlayerController* PlayerCtrl = Cast<APlayerController>(GetController());
 
 	PlayerCtrl->PlayerCameraManager->StartCameraShake(UHitCameraShake::StaticClass());
-
-	//UGameplayStatics::PlayWorldCameraShake(GetController(), UHitCameraShake::StaticClass(),
-	//	FVector::ZeroVector,100.f, 1000.f)
-
-
-	// 아래 두 함수는 PlayerController가 가지고 있는 CameraManager를 이용해서
-	// 접근해야 한다. static 멤버함수가 아니기 때문이다.
 	//APlayerCameraManager::StartCameraShake(UHitCameraShake::StaticClass());
 	//APlayerCameraManager::StopCameraShake();
 
@@ -170,6 +168,9 @@ void APlayerCharacter::MoveFront(float Scale)
 void APlayerCharacter::MoveSide(float Scale)
 {
 	AddMovementInput(GetActorRightVector(), Scale);
+
+	/*if (Scale != 0.f)
+		mPlayerAnim->ChangeAnim(EPlayerAnimType::Default);*/
 }
 
 
@@ -214,6 +215,8 @@ void APlayerCharacter::CameraZoom(float Scale)
 void APlayerCharacter::RotationCamera()
 {
 	mCameraRotationEnable = true;
+
+	LOG(TEXT("Test : %d"), (int32)mCameraRotationEnable);
 }
 
 void APlayerCharacter::RotationCameraReleased()
@@ -279,5 +282,66 @@ void APlayerCharacter::Attack3()
 {
 }
 
-///
+/*
+
+void APlayerCharacter::FootInteraction(bool Left)
+{
+	FVector	FootLoc;
+
+	if (Left)
+		FootLoc = GetMesh()->GetSocketLocation(TEXT("Foot_L"));
+
+	else
+		FootLoc = GetMesh()->GetSocketLocation(TEXT("Foot_R"));
+
+	FVector	LineEnd = FootLoc + FVector::DownVector * 50.f;
+
+	FHitResult	result;
+
+	FCollisionQueryParams	param(NAME_None, false, this);
+	param.bReturnPhysicalMaterial = true;
+
+	bool Collision = GetWorld()->LineTraceSingleByChannel(result,
+		FootLoc, LineEnd, ECollisionChannel::ECC_Visibility, param);
+
+	if (Collision)
+	{
+		USAC1PhysicalMaterial* Phys = Cast<USAC1PhysicalMaterial>(result.PhysMaterial);
+
+		if (IsValid(Phys))
+		{
+			LOG(TEXT("Physical : %s"), *Phys->GetName());
+
+			if (IsValid(Phys->GetParticle()))
+			{
+				FActorSpawnParameters	ActorParam;
+				ActorParam.SpawnCollisionHandlingOverride =
+					ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+
+				ADefaultEffect* Effect = GetWorld()->SpawnActor<ADefaultEffect>(
+					FootLoc,
+					FRotator::ZeroRotator, ActorParam);
+
+				Effect->SetParticleAsset(Phys->GetParticle());
+			}
+
+			if (IsValid(Phys->GetSound()))
+			{
+				UGameplayStatics::PlaySoundAtLocation(this, Phys->GetSound(),
+					FootLoc, 10.f);
+			}
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+*/
  
