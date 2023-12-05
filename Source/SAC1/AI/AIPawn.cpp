@@ -565,6 +565,7 @@ void AAIPawn::OnConstruction(const FTransform& Transform)
 	이 정보는 주로 반복문 등에서 사용하여 각 머티리얼에 대한 조작이나 초기화 등을 수행할 때 활용
 	*/
 
+	int32	ElementCount = mMesh->GetNumMaterials();
 
 	for (int32 i = 0; i < ElementCount; ++i)
 	{
@@ -622,6 +623,7 @@ void AAIPawn::OnConstruction(const FTransform& Transform)
 	
 	*/
 
+	/*
 	내 코드에서 빠진 부분
 
 		mPatrolIndex = 1;
@@ -658,13 +660,34 @@ void AAIPawn::OnConstruction(const FTransform& Transform)
 	따라서, 이 코드는 메쉬에서 사용 중인 각 머티리얼에 대해 동적으로 머티리얼 인스턴스를 생성하고, 이를 배열에 저장하는 작업
 	이렇게 생성된 동적 머티리얼 인스턴스는 이후에 게임에서 동적으로 변경될 수 있다.
 	
-	*/
-
 	
 	*/
-
-
+	
 }
+
+void AAIPawn::BeginPlay()
+{
+	Super::BeginPlay();
+
+	//mAnim = Cast<UDefaultAIAnimInstance>(mMesh->GetAnimInstance());
+
+	//// SpawnPoint 없이 바로 배치해서 사용하며 PatrolPoint를 넣어준 경우
+	//// 이 안으로 들어오게 될 것이다.
+	//if (!mPatrolPoint.IsEmpty())
+	//{
+	//	FVector	Loc = GetActorLocation();
+	//	Loc.Z -= mBody->GetScaledCapsuleHalfHeight();
+
+	//	mPatrolPoint.Add(Loc);
+
+	//	for (auto& Point : mPatrolPointArray)
+	//	{
+	//		mPatrolPoint.Add(Point->GetActorLocation());
+	//	}
+	//}
+}
+
+
 
 
 void AAIPawn::EndPlay(const EEndPlayReason::Type EndPlayReason)

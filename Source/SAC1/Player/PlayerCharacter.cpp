@@ -16,6 +16,8 @@ APlayerCharacter::APlayerCharacter()
 	mSpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArm"));
 	mSpringArm->SetRelativeLocation(FVector(0.0, 0.0, 160.0));
 	mSpringArm->SetRelativeRotation(FRotator(-10.0, 90.0, 0.0));
+	//SetRelativeLocation과 SetRelativeRotation은 더블타입. 뒤에 .f안붙인다.
+
 	mSpringArm->TargetArmLength = 500.f;
 
 	static ConstructorHelpers::FObjectFinder<UNiagaraSystem>	TrailAsset(TEXT("/Script/Niagara.NiagaraSystem'/Game/Niagara/NS_Trail.NS_Trail'"));
@@ -333,14 +335,6 @@ void APlayerCharacter::FootInteraction(bool Left)
 		}
 	}
 }
-
-
-
-
-
-
-
-
 
 
 */
